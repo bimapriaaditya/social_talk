@@ -1,0 +1,77 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "aduan_petugas".
+ *
+ * @property int $id
+ * @property int $id_aduan
+ * @property int $id_petugas
+ * @property string $text
+ * @property string $tanggal
+ *
+ * @property Aduan $aduan
+ * @property Petugas $petugas
+ */
+class AduanPetugas extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'aduan_petugas';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['id_aduan', 'id_petugas', 'text', 'tanggal'], 'required'],
+            [['id_aduan', 'id_petugas'], 'integer'],
+            [['text'], 'string'],
+            [['tanggal'], 'safe'],
+            [['id_aduan'], 'exist', 'skipOnError' => true, 'targetClass' => Aduan::className(), 'targetAttribute' => ['id_aduan' => 'id']],
+            [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'id_aduan' => 'Id Aduan',
+            'id_petugas' => 'Id Petugas',
+            'text' => 'Text',
+            'tanggal' => 'Tanggal',
+        ];
+    }
+
+    /**
+     * Gets query for [[Aduan]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAduan()
+    {
+        return $this->hasOne(Aduan::className(), ['id' => 'id_aduan']);
+    }
+
+    /**
+     * Gets query for [[Petugas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPetugas()
+    {
+        return $this->hasOne(Petugas::className(), ['id' => 'id_petugas']);
+    }
+}

@@ -1,0 +1,45 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Aduan */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="aduan-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'id_user')->textInput() ?>
+
+    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tanggal')->textInput() ?>
+
+    <?= $form->field($model, 'id_kategori')->textInput() ?>
+
+    <?= $form->field($model, 'id_provinsi')->textInput() ?>
+
+    <?= $form->field($model, 'id_kota')->textInput() ?>
+
+    <?= $form->field($model, 'keterangan_tempat')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'deskripsi')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'img_bukti_1')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'img_bukti_2')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'img_bukti_3')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sifat')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
