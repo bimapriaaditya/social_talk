@@ -9,12 +9,12 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Masyarakat;
+use app\models\Petugas;
 
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+    public $layout = 'frontend/main';
     public function behaviors()
     {
         return [
@@ -64,20 +64,28 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionRegister()
+    {
+        $this->layout = 'frontend/register';
+        return $this->render('register');
+    }
+
     /**
      * Login action.
      *
      * @return Response|string
      */
+
     public function actionLogin()
     {
+        $this->layout = 'backend/main';
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $this->redirect(['aduan/index']);
         }
 
         $model->password = '';

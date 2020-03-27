@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "masyarakat".
@@ -110,4 +111,10 @@ class Masyarakat extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
     }
+
+    public function setUserMasyarakat()
+    {
+        // set kondisi dimana if (id_user == $IdInUser) return 1; 
+    }
+
 }

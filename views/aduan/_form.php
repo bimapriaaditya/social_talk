@@ -28,11 +28,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'deskripsi')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'img_bukti_1')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'img_bukti_1')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'img_bukti_2')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'img_bukti_2')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'img_bukti_3')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'img_bukti_3')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'sifat')->textInput() ?>
 

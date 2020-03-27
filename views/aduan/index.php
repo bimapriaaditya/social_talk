@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\AduanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Aduans';
+$this->title = 'Ruang Aduan Publik';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="aduan-index">
@@ -15,10 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Aduan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Buat Aduan', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    /*if petugas */
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,12 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'id_user',
             'nama',
             'tanggal',
             'id_kategori',
-            //'id_provinsi',
-            //'id_kota',
+            'id_provinsi',
+            'id_kota',
             //'keterangan_tempat:ntext',
             //'deskripsi:ntext',
             //'img_bukti_1',
@@ -44,5 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+    <!-- if masyarakat  -->
 
 </div>

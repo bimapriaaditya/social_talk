@@ -7,6 +7,7 @@ use app\models\Aduan;
 use app\models\AduanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -14,9 +15,7 @@ use yii\filters\VerbFilter;
  */
 class AduanController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+    public $layout = 'backend/main';
     public function behaviors()
     {
         return [
@@ -66,7 +65,33 @@ class AduanController extends Controller
     {
         $model = new Aduan();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $Bukti1Img = UploadedFile::getInstance($model, 'img_bukti_1');
+            $Bukti2Img = UploadedFile::getInstance($model, 'img_bukti_2');
+            $Bukti3Img = UploadedFile::getInstance($model, 'img_bukti_3');
+
+            if ($Bukti1Img !== null) {
+                $Bukti1Nama = date('Ymdhis') . '_UPLOADED-BUKTI_1_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti1Img->getExtension();
+                $model->img_bukti_1 = $Bukti1Nama;
+            }
+
+            if ($Bukti2Img !== null) {
+                $Bukti2Nama = date('Ymdhis') . '_UPLOADED-BUKTI_2_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti2Img->getExtension();
+                $model->img_bukti_2 = $Bukti2Nama;
+            }
+
+            if ($Bukti3Img !== null) {
+                $Bukti3Nama = date('Ymdhis') . '_UPLOADED-BUKTI_3_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti3Img->getExtension();
+                $model->img_bukti_3 = $Bukti3Nama;
+            }
+
+            if ($model->save()) {
+                $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
+                $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
+                $Bukti3Img->saveAs(Yii::getAlias('@Bukti3ImgPath') . '/' . $Bukti3Nama);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +111,31 @@ class AduanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $Bukti1Img = UploadedFile::getInstance($model, 'img_bukti_1');
+            $Bukti2Img = UploadedFile::getInstance($model, 'img_bukti_2');
+            $Bukti3Img = UploadedFile::getInstance($model, 'img_bukti_3');
+
+            if ($Bukti1Img !== null) {
+                $Bukti1Nama = date('Ymdhis') . '_UPLOADED-BUKTI_1_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti1Img->getExtension();
+                $model->img_bukti_1 = $Bukti1Nama;
+                $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
+            }
+
+            if ($Bukti2Img !== null) {
+                $Bukti2Nama = date('Ymdhis') . '_UPLOADED-BUKTI_2_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti2Img->getExtension();
+                $model->img_bukti_2 = $Bukti2Nama;
+                $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
+            }
+
+            if ($Bukti3Img !== null) {
+                $Bukti3Nama = date('Ymdhis') . '_UPLOADED-BUKTI_3_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti3Img->getExtension();
+                $model->img_bukti_3 = $Bukti3Nama;
+                $Bukti3Img->saveAs(Yii::getAlias('@Bukti3ImgPath') . '/' . $Bukti3Nama);
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,7 +153,11 @@ class AduanController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $model->delete();
+        $model->deleteFile1();
+        $model->deleteFile2();
+        $model->deleteFile3();
 
         return $this->redirect(['index']);
     }

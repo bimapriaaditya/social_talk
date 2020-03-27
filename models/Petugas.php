@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\User;
 
 /**
  * This is the model class for table "petugas".
@@ -122,5 +123,10 @@ class Petugas extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'id_user']);
+    }
+
+    public function setUserPetugas()
+    {
+        // Set Kondisi if (id_petugas == $IdInUser) return 2;
     }
 }

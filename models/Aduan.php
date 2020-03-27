@@ -24,6 +24,7 @@ use Yii;
  * @property Provinsi $provinsi
  * @property Kota $kota
  * @property Kategori $kategori
+ * @property User $user
  * @property AduanMasyarakat[] $aduanMasyarakats
  * @property AduanPetugas[] $aduanPetugas
  * @property AduanTanggapan[] $aduanTanggapans
@@ -52,6 +53,7 @@ class Aduan extends \yii\db\ActiveRecord
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],
             [['id_kategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['id_kategori' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -108,6 +110,16 @@ class Aduan extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
+    }
+
+    /**
      * Gets query for [[AduanMasyarakats]].
      *
      * @return \yii\db\ActiveQuery
@@ -135,5 +147,23 @@ class Aduan extends \yii\db\ActiveRecord
     public function getAduanTanggapans()
     {
         return $this->hasMany(AduanTanggapan::className(), ['id_aduan' => 'id']);
+    }
+
+    public function deleteFile1()
+    {
+        $path = Yii::getAlias('@Bukti1ImgPath') . '/' . $this->img_bukti_1;
+        return unlink($path);
+    }
+
+    public function deleteFile2()
+    {
+        $path = Yii::getAlias('@Bukti2ImgPath') . '/' . $this->img_bukti_2;
+        return unlink($path);
+    }
+
+    public function deleteFile3()
+    {
+        $path = Yii::getAlias('@Bukti3ImgPath') . '/' . $this->img_bukti_3;
+        return unlink($path);
     }
 }
