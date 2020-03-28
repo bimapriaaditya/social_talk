@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use app\models\Aduan;
+use app\models\AduanMasyarakat;
+use app\models\AduanPetugas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -132,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-4">
                     <button type="button" class="btn btn-block">
                         <span class="badge bg-purple">999</span>
-                        <i class="glyphicon glyphicon-comment"> 333</i>
+                        <i class="glyphicon glyphicon-comment"></i>
                     </button>
                 </div>
             </div>
@@ -146,12 +148,42 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h3 class="box-title">KOLOM TANGGAPAN MASYARAKAT</h3>
                 </div>
                 <div class="box-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <!-- <?php 
+                    $no = 1;
+                    foreach(AduanMasyarakat::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanMasyarakat):?>
+                    <?php endforeach ?> -->
+                    <div class="box-footer box-comments">
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    Maria Gonzales
+                                    <a href="">Edit</a>
+                                    <a href="">Hapus</a>
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span> <!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                                    Luna Stark
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span><!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                    </div>
                 </div>
                 <div class="box-footer"></div>
             </div>
@@ -163,14 +195,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
                 </div>
                 <div class="box-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <!-- <?php 
+                    $no = 1;
+                    foreach(AduanPetugas::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanPetugas):?>
+                    <?php endforeach ?> -->
+                    <div class="box-footer box-comments">
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    Maria Gonzales
+                                    <a href="">Edit</a>
+                                    <a href="">Hapus</a>
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span> <!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                                    Luna Stark
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span><!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                    </div>
+                    <div class="box-footer"></div>
                 </div>
-                <div class="box-footer"></div>
             </div>
         </div>
     </div>
@@ -184,7 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-body">
                     <div class="form-group">
                         <label>Beri Tanggapan :</label>
-                        <textarea class="form-control" rows="6" placeholder="Tambahkan Kata..."></textarea>
+                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
@@ -201,7 +263,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-body">
                     <div class="form-group">
                         <label>Beri Tanggapan :</label>
-                        <textarea class="form-control" rows="6" placeholder="Tambahkan Kata..."></textarea>
+                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
