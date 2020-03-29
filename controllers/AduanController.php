@@ -43,6 +43,17 @@ class AduanController extends Controller
         ]);
     }
 
+    public function actionUserIndex()
+    {
+        $searchModel = new AduanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('user_index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Aduan model.
      * @param integer $id
@@ -74,23 +85,22 @@ class AduanController extends Controller
             if ($Bukti1Img !== null) {
                 $Bukti1Nama = date('Ymdhis') . '_UPLOADED-BUKTI_1_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti1Img->getExtension();
                 $model->img_bukti_1 = $Bukti1Nama;
+                $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
             }
 
             if ($Bukti2Img !== null) {
                 $Bukti2Nama = date('Ymdhis') . '_UPLOADED-BUKTI_2_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti2Img->getExtension();
                 $model->img_bukti_2 = $Bukti2Nama;
+                $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
             }
 
             if ($Bukti3Img !== null) {
                 $Bukti3Nama = date('Ymdhis') . '_UPLOADED-BUKTI_3_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti3Img->getExtension();
                 $model->img_bukti_3 = $Bukti3Nama;
-            }
-
-            if ($model->save()) {
-                $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
-                $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
                 $Bukti3Img->saveAs(Yii::getAlias('@Bukti3ImgPath') . '/' . $Bukti3Nama);
             }
+
+            $model->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
         }

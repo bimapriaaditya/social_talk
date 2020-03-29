@@ -7,6 +7,7 @@ use app\models\Masyarakat;
 use app\models\MasyarakatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,7 +65,16 @@ class MasyarakatController extends Controller
     {
         $model = new Masyarakat();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $MasyarakatImg = UploadedFile::getInstance($model, 'img');
+
+            if ($MasyarakatImg !== null) {
+                $MasyarakatNama = date('Ymdhis') . '_Photo-Picture_' . $model->nama . $MasyarakatImg->getExtension();
+                $model->img = $MasyarakatNama;
+                $MasyarakatImg->saveAs(Yii::getAlias('@MasyarakatImgPath') . '/' . $MasyarakatNama);
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -84,7 +94,17 @@ class MasyarakatController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $MasyarakatImg = UploadedFile::getInstance($model, 'img');
+
+            if ($MasyarakatImg !== null) {
+                $MasyarakatNama = date('Ymdhis') . '_Photo-Picture_' . $model->nama . '.' . $MasyarakatImg->getExtension();
+                $model->img = $MasyarakatNama;
+                $MasyarakatImg->saveAs(Yii::getAlias('@MasyarakatImgPath') . '/' . $MasyarakatNama);
+            }
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
