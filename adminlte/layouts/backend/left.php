@@ -1,3 +1,11 @@
+<?php 
+
+use app\models\User;
+use dmstr\widgets\Menu;
+
+
+?>
+
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -8,8 +16,7 @@
                 <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-                <p>Alexander Pierce</p>
-
+                <p> <?= User::getNamaUser(); ?> </p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -26,7 +33,7 @@
         </form>
         <!-- /.search form -->
 
-        <?= dmstr\widgets\Menu::widget(
+        <?= Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [

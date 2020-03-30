@@ -61,9 +61,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'id_kategori',
-                    'id_provinsi',
-                    'id_kota',
+                    [
+                        'attribute' => 'id_kategori',
+                        'value' => $model->kategori->nama
+                    ],
+                    [
+                        'attribute' => 'id_provinsi',
+                        'value' => $model->provinsi->nama
+                    ],
+                    [
+                        'attribute' => 'id_kota',
+                        'value' => $model->kota->nama
+                    ],
                     'keterangan_tempat:ntext',
                     'sifat',
                 ],
