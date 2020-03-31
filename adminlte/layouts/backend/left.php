@@ -2,6 +2,7 @@
 
 use app\models\User;
 use dmstr\widgets\Menu;
+use yii\helpers\Html;
 
 
 ?>
@@ -13,7 +14,7 @@ use dmstr\widgets\Menu;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']); ?>
             </div>
             <div class="pull-left info">
                 <p> <?= User::getNamaUser(); ?> </p>

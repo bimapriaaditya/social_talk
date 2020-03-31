@@ -35,8 +35,7 @@ use yii\helpers\Html;
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                                 alt="User Image"/>
+                                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
                                         </div>
                                         <h4>
                                             Support Team
@@ -231,7 +230,7 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat(), ['class' => 'user-image']); ?>
                         <span class="hidden-xs">
                             <?php 
                              echo User::getNamaUser();
@@ -241,11 +240,14 @@ use yii\helpers\Html;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                 alt="User Image"/>
-
+                            <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']); ?>
                             <p>
-                                <?= User::getNamaUser();?>
+                                <?php 
+                                if (User::isPetugas()) {
+                                    echo User::getNamaPetugas();
+                                }else{
+                                    echo User::getNamaUser();
+                            }?>
                                 <small><?= Yii::$app->user->identity->email; ?></small>
                             </p>
                         </li>

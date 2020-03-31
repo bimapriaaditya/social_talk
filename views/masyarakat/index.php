@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\MasyarakatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Masyarakats';
+$this->title = 'Masyarakat';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="masyarakat-index">
@@ -26,13 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'id_user',
-            'nik',
             'nama',
+            'nik',
+            'id_kota',
             'no_telepon',
             //'id_provinsi',
-            //'id_kota',
             //'alamat:ntext',
             //'tanggal_lahir',
             //'usia',

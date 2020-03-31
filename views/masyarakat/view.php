@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-3">
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
 
+                        <?= Html::img('@MasyarakatImgUrl/' . $model->img, ['class' => 'profile-user-img img-responsive img-circle', 'style' => 'width:50%; height:100px;']); ?>
                         <h3 class="profile-username text-center"><?= $model->nama ?></h3>
 
                         <p class="text-muted text-center">NIK. <?= $model->nik ?></p>
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <strong><i class="fa fa-map-marker margin-r-5"></i> Lokasi</strong>
 
-                        <p class="text-muted"><?= $model->id_kota . ',' . $model->id_provinsi ?></p>
+                        <p class="text-muted"><?= $model->kota->nama . ',' . $model->provinsi->nama ?></p>
 
                         <hr>
 
@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <hr>
 
-                        <strong><i class="fa fa-calendar-times-o margin-r-5"></i> No. Telepon</strong>
+                        <strong><i class="fa fa-phone-square margin-r-5"></i> No. Telepon</strong>
 
                         <p>
                             <?= $model->no_telepon ?>
@@ -118,7 +118,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'alamat:ntext',
                                 'tanggal_lahir',
-                                'usia',
+                                [
+                                    'label' => 'Usia',
+                                    'value' => $model->usia . ' Tahun'
+                                ],
                             ],
                         ]) ?>
                     </div>

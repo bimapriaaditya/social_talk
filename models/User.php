@@ -101,4 +101,53 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
         return null;
     }
+
+    public static function getNamaPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return $model->nama;
+        }
+        return null;
+    }
+
+    public static function getImgMasyarakat()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return $model->img;
+        }
+    }
+
+    public static function isMasyarakat()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
