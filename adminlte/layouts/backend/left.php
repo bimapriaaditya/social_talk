@@ -18,7 +18,7 @@ use yii\helpers\Html;
             </div>
             <div class="pull-left info">
                 <p> <?= User::getNamaUser(); ?> </p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <a href="#"><i class="fa fa-circle text-success"></i>NIK.<?= User::getNikMasyarakat() ?></a>
             </div>
         </div>
 

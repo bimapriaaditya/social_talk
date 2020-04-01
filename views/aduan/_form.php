@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Kategori;
+use app\models\Kota;
+use app\models\Provinsi;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -18,11 +21,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tanggal')->textInput() ?>
 
-    <?= $form->field($model, 'id_kategori')->textInput() ?>
+    <?= $form->field($model, 'id_kategori')->dropDownList(Kategori::getList(), ['prompt' => '--- Kategori Aduan ---']); ?>
 
-    <?= $form->field($model, 'id_provinsi')->textInput() ?>
+    <?= $form->field($model, 'id_provinsi')->dropDownList(Provinsi::getList(), ['prompt' => '--- Provinsi ---']); ?>
 
-    <?= $form->field($model, 'id_kota')->textInput() ?>
+    <?= $form->field($model, 'id_kota')->dropDownList(Kota::getList(), ['prompt' => '--- Kota ---']); ?>
 
     <?= $form->field($model, 'keterangan_tempat')->textarea(['rows' => 6]) ?>
 

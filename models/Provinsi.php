@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "provinsi".
@@ -74,5 +75,11 @@ class Provinsi extends \yii\db\ActiveRecord
     public function getPetugas()
     {
         return $this->hasMany(Petugas::className(), ['id_provinsi' => 'id']);
+    }
+
+    public static function getList()
+    {
+        $query = Provinsi::find()->orderBy(['id' => SORT_ASC])->all();
+        return ArrayHelper::map($query, 'id', 'nama');
     }
 }

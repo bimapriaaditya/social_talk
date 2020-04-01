@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use Yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "kategori".
  *
@@ -52,5 +52,11 @@ class Kategori extends \yii\db\ActiveRecord
     public function getAduans()
     {
         return $this->hasMany(Aduan::className(), ['id_kategori' => 'id']);
+    }
+
+    public static function getList()
+    {
+        $query = Kategori::find()->orderBy(['id' => SORT_ASC])->all();
+        return ArrayHelper::map($query, 'id', 'nama');
     }
 }

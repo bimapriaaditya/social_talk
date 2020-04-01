@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kota".
@@ -74,5 +75,11 @@ class Kota extends \yii\db\ActiveRecord
     public function getPetugas()
     {
         return $this->hasMany(Petugas::className(), ['id_kota' => 'id']);
+    }
+
+    public static function getList()
+    {
+        $query = Kota::find()->orderBy(['id' => SORT_ASC])->all();
+        return ArrayHelper::map($query, 'id', 'nama');
     }
 }

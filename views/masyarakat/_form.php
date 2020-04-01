@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Provinsi;
+use app\models\Kota;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Masyarakat */
@@ -18,17 +20,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'no_telepon')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'no_telepon')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'id_provinsi')->textInput() ?>
+    <?= $form->field($model, 'id_provinsi')->dropDownList(Provinsi::getList(), ['prompt' => '-- Provinsi ---']); ?>
 
-    <?= $form->field($model, 'id_kota')->textInput() ?>
+    <?= $form->field($model, 'id_kota')->dropDownList(Kota::getList(), ['prompt' => '--- Kota ---']) ?>
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'tanggal_lahir')->textInput() ?>
 
-    <?= $form->field($model, 'usia')->textInput() ?>
+    <?= $form->field($model, 'usia')->textInput(['type' => 'number']) ?>
 
     <?= $form->field($model, 'img')->fileInput(['maxlength' => true]) ?>
 
