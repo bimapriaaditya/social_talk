@@ -1,8 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use app\models\Aduan;
+use app\models\Kategori;
+use app\models\Kota;
+use app\models\Provinsi;
+use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AduanSearch */
@@ -30,9 +33,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'nama',
             'tanggal',
-            'id_kategori',
-            'id_provinsi',
-            'id_kota',
+            [
+                'attribute' => 'id_kategori',
+                'filter' => Kategori::getList(),
+                'value' => function($lorem)
+                {
+                    return $lorem->kategori->nama;
+                }
+            ],
+            [
+                'attribute' => 'id_provinsi',
+                'filter'=> Provinsi::getList(),
+                'value' => function($lorem)
+                {
+                    return $lorem->provinsi->nama;
+                }
+            ],
+            [
+                'attribute' => 'id_kota',
+                'filter' => Kota::getList(),
+                'value' => function($lorem)
+                {
+                    return $lorem->kota->nama;
+                }
+            ],
             //'keterangan_tempat:ntext',
             //'deskripsi:ntext',
             //'img_bukti_1',

@@ -1,7 +1,8 @@
 <?php
 
-use yii\helpers\Html;
+use app\models\Kota;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MasyarakatSearch */
@@ -28,7 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'nama',
             'nik',
-            'id_kota',
+            [
+                'attribute' => 'id_kota',
+                'filter' => Kota::getList(),
+                'value' => function($lorem)
+                {
+                    return $lorem->kota->nama;
+                }
+            ],
             'no_telepon',
             //'id_provinsi',
             //'alamat:ntext',
