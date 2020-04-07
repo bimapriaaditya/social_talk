@@ -5,10 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\Aduan;
 use app\models\AduanSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
-use yii\filters\VerbFilter;
 
 /**
  * AduanController implements the CRUD actions for Aduan model.
@@ -74,7 +74,7 @@ class AduanController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Aduan();
+        $model = new Ad4uan();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -121,6 +121,10 @@ class AduanController extends Controller
     {
         $model = $this->findModel($id);
 
+        $Bukti1Img_lama = $model->img_bukti_1;
+        $Bukti2Img_lama = $model->img_bukti_2;
+        $Bukti3Img_lama = $model->img_bukti_3;
+
         if ($model->load(Yii::$app->request->post())) {
 
             $Bukti1Img = UploadedFile::getInstance($model, 'img_bukti_1');
@@ -130,22 +134,36 @@ class AduanController extends Controller
             if ($Bukti1Img !== null) {
                 $Bukti1Nama = date('Ymdhis') . '_UPLOADED-BUKTI_1_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti1Img->getExtension();
                 $model->img_bukti_1 = $Bukti1Nama;
-                $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
+            } else {
+                $model->img_bukti_1 = $Bukti1Img_lama;
             }
 
             if ($Bukti2Img !== null) {
                 $Bukti2Nama = date('Ymdhis') . '_UPLOADED-BUKTI_2_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti2Img->getExtension();
                 $model->img_bukti_2 = $Bukti2Nama;
-                $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
+            } else {
+                $model->img_bukti_2 = $Bukti2Img_lama;
             }
 
             if ($Bukti3Img !== null) {
                 $Bukti3Nama = date('Ymdhis') . '_UPLOADED-BUKTI_3_' . $model->nama . '_' . $model->tanggal . '.' . $Bukti3Img->getExtension();
                 $model->img_bukti_3 = $Bukti3Nama;
-                $Bukti3Img->saveAs(Yii::getAlias('@Bukti3ImgPath') . '/' . $Bukti3Nama);
+            } else {
+                $model->img_bukti_3 = $Bukti3Img_lama;
             }
 
-            $model->save();
+            if ($model->save()) {
+                if ($Bukti1Img !== null) {
+                    $Bukti1Img->saveAs(Yii::getAlias('@Bukti1ImgPath') . '/' . $Bukti1Nama);
+                }
+                if ($Bukti2Img !== null) {
+                    $Bukti2Img->saveAs(Yii::getAlias('@Bukti2ImgPath') . '/' . $Bukti2Nama);
+                }
+                if ($Bukti3Img !== null) {
+                    $Bukti3Img->saveAs(Yii::getAlias('@Bukti3ImgPath') . '/' . $Bukti3Nama);
+                }
+                
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -165,9 +183,15 @@ class AduanController extends Controller
     {
         $model = $this->findModel($id);
         $model->delete();
-        $model->deleteFile1();
-        $model->deleteFile2();
-        $model->deleteFile3();
+        if ($model->img_bukti_1 == true) {
+             $model->deleteFile1();
+        }
+        if ($model->img_bukti_2 == true) {
+            $model->deleteFile2();
+        }
+        if ($model->img_bukti_3 == true) {
+            $model->deleteFile3();
+        }
 
         return $this->redirect(['index']);
     }

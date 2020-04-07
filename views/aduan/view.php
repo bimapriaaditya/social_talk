@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use app\models\Aduan;
 use app\models\AduanMasyarakat;
 use app\models\AduanPetugas;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -52,29 +53,41 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="box-body">
             <p style="text-align: right;color:red;">
-                Dibuat Oleh : <?= Html::a($model->id_user, ['masyarakat/view', 'id' => $model->id]) ?>
+                Dibuat Oleh : <?= Html::a( User::getNamaUser(), ['masyarakat/view', 'id' => $model->id]) ?>
             </p>
             <p style="text-align: right;">
                 <i class="glyphicon glyphicon-calendar"></i> <?= $model->tanggal ?>
+            </p>
+            <p style="text-align: right;">
+                <?php 
+                    if ($model->sifat == 1) {
+                        echo "<i class='fa fa-globe' style='color:green; font-size:18px; '> Public</i>";
+                    }else{
+                        echo "<i class='fa fa-lock' style='color:red; font-size:18px; '> Private</i>";
+                    }
+                ?>
             </p>
 
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
                     [
-                        'attribute' => 'id_kategori',
+                        'label' => 'Kategori',
                         'value' => $model->kategori->nama
                     ],
                     [
-                        'attribute' => 'id_provinsi',
+                        'label' => 'Provinsi',
                         'value' => $model->provinsi->nama
                     ],
                     [
-                        'attribute' => 'id_kota',
+                        'label' => 'Kota',
                         'value' => $model->kota->nama
                     ],
                     'keterangan_tempat:ntext',
-                    'sifat',
+                    [
+                        'label' => 'Sifat',
+                        'value' => (($model->sifat == 1)? "Public" : "Private")
+                    ],
                 ],
             ]) ?>
 
@@ -109,13 +122,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         <p>
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <a href="<?= Yii::getAlias('@Bukti1ImgUrl') . '/' . $model->img_bukti_1 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php if ($model->img_bukti_1 == true): ?>
+                                        <a href="<?= Yii::getAlias('@Bukti1ImgUrl') . '/' . $model->img_bukti_1 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php endif ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="<?= Yii::getAlias('@Bukti2ImgUrl') . '/' . $model->img_bukti_2 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php if ($model->img_bukti_2 == true): ?>
+                                        <a href="<?= Yii::getAlias('@Bukti2ImgUrl') . '/' . $model->img_bukti_2 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php endif ?>
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="<?= Yii::getAlias('@Bukti3ImgUrl') . '/' . $model->img_bukti_3 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php if ($model->img_bukti_3 == true): ?>
+                                        <a href="<?= Yii::getAlias('@Bukti3ImgUrl') . '/' . $model->img_bukti_3 ?>" class="btn btn-primary btn-block"> Lihat Data <span class="fa fa-eye"></span> </a>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </p>

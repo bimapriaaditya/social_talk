@@ -30,54 +30,6 @@ use yii\bootstrap\ActiveForm;
   <![endif]-->
 </head>
 <body class="hold-transition register-page">
-<div class="register-box">
-  <div class="register-logo">
-    <b>Social-</b>REGISTER
-  </div>
-
-  <div class="register-box-body" style="border-radius: 10%;">
-    <p class="login-box-msg">Register a new membership</p>
-
-    <form action="../../index.html" method="post">
-      <label> Email :</label>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <label> Password : </label>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-      </div>
-      <div>&nbsp;</div>
-      <div class="social-auth-links text-center">
-        <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
-      </div>
-    </form>
-    <?= Html::a('<i>I already have a membership</i>',['/site/login'])?>
-  </div>
-  <!-- /.form-box -->
-</div>
-<!-- /.register-box -->
-
-<!-- jQuery 3 -->
-<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="../../plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
+<?= $content; ?>
 </body>
 </html>

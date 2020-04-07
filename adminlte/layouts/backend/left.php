@@ -17,7 +17,7 @@ use yii\helpers\Html;
                 <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']); ?>
             </div>
             <div class="pull-left info">
-                <p> <?= User::getNamaUser(); ?> </p>
+                <p> <?= Html::a( User::getNamaUser(), ['/masyarakat/view/', 'id' => User::getIdMasyarakat() ]); ?>  </p>
                 <a href="#"><i class="fa fa-circle text-success"></i>NIK.<?= User::getNikMasyarakat() ?></a>
             </div>
         </div>
