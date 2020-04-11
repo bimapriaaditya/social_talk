@@ -230,17 +230,30 @@ use yii\helpers\Html;
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat(), ['class' => 'user-image']); ?>
+                        <?php 
+                        if (User::isMasyarakat()) {
+                            Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat(), ['class' => 'user-image']);
+                        }else{
+                            Html::img('@PetugasImgUrl/' . User::getImgPetugas(), ['class' => 'user-image']);
+                        }?>
                         <span class="hidden-xs">
                             <?php 
-                             echo User::getNamaUser();
-                             ?>
+                            if (User::isMasyarakat()) {
+                                echo User::getNamaUser();
+                            }else{
+                                echo User::getNamaPetugas();
+                            }?>
                         </span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']); ?>
+                            <?php 
+                            if (User::isMasyarakat()) {
+                               echo Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']);
+                            }else{
+                                echo Html::img('@PetugasImgUrl/' . User::getImgPetugas() , ['class' => 'img-circle']);
+                            }?>
                             <p>
                                 <?php 
                                 if (User::isPetugas()) {
