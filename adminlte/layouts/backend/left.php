@@ -14,11 +14,32 @@ use yii\helpers\Html;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <?= Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']); ?>
+                <?php 
+                if(User::isMasyarakat()){
+                    echo Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']);
+                }else{
+                    echo Html::img('@PetugasImgUrl/' . User::getImgPetugas() , ['class' => 'img-circle']);
+                }?>
             </div>
             <div class="pull-left info">
-                <p> <?= Html::a( User::getNamaUser(), ['/masyarakat/view/', 'id' => User::getIdMasyarakat() ]); ?>  </p>
-                <a href="#"><i class="fa fa-circle text-success"></i>NIK.<?= User::getNikMasyarakat() ?></a>
+                <p>
+                    <?php 
+                    if (User::isMasyarakat()) {
+                        echo Html::a(User::getNamaUser(),['/masyarakat/view/','id' => User::getIdMasyarakat()]);
+                    }else{
+                        echo Html::a(User::getNamaPetugas(),['/petugas/view/','id' => User::getIdPetugas()]);
+                    }
+                    ?>
+                </p>
+                <a href="#"><i class="fa fa-circle text-success"></i>
+                    <?php
+                    if (User::isMasyarakat()) {
+                        echo "NIK." . User::getNikMasyarakat();
+                    }else{
+                        echo User::getBagian();
+                    }
+                    ?>
+                </a>
             </div>
         </div>
 

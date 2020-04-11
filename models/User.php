@@ -111,7 +111,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $model = Petugas::find()
             ->andWhere(['id_user' => Yii::$app->user->identity->id])
             ->one();
-
         if ($model !== null) {
             return $model->nama;
         }
@@ -121,6 +120,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function getIdMasyarakat()
     {
         $model = Masyarakat::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return $model->id;
+        }
+    }
+
+    public static function getIdPetugas()
+    {
+        $model = Petugas::find()
             ->andWhere(['id_user' => Yii::$app->user->identity->id])
             ->one();
 
@@ -140,6 +150,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+    public static function getImgPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return $model->img;
+        }
+    }
+
     public static function getNikMasyarakat()
     {
         $model = Masyarakat::find()
@@ -148,6 +169,17 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         if ($model !== null) {
                return $model->nik;
            }   
+    }
+
+    public static function getBagian()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id_user' => Yii::$app->user->identity->id])
+            ->one();
+
+        if ($model !== null) {
+            return $model->bagian->nama;
+        }
     }
 
     public static function isMasyarakat()
