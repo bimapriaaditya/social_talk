@@ -4,6 +4,7 @@ use app\models\Aduan;
 use app\models\Kategori;
 use app\models\Kota;
 use app\models\Provinsi;
+use app\models\User;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -67,6 +68,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+    <?php
+    if (User::isMasyarakat()) {
+        echo "Kau Adalah Masyarakat";
+    }elseif (User::isPetugas()) {
+        echo "Kau Adalah Petugas";
+    }else{
+        echo "Kau Adalah Admin";
+    }
+    ?>
         
     <!-- if masyarakat  -->
 
