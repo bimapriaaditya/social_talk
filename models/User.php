@@ -17,7 +17,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
+            [['email', 'password', 'role'], 'required'],
             [['email', 'password'], 'string', 'max' => 255],
         ];
     }
@@ -28,6 +28,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id' => 'ID',
             'email' => 'Email',
             'password' => 'Password',
+            'role' => 'Role',
         ];
     }
 

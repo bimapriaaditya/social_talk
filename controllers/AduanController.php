@@ -74,7 +74,7 @@ class AduanController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Ad4uan();
+        $model = new Aduan();
 
         if ($model->load(Yii::$app->request->post())) {
 

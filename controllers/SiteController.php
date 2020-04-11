@@ -69,7 +69,6 @@ class SiteController extends Controller
         $this->layout = 'frontend/register';
         return $this->render('register');
     }
-
     /**
      * Login action.
      *

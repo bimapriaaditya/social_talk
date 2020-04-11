@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tanggal_lahir',
             //'usia',
             //'img',
-            //'role',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

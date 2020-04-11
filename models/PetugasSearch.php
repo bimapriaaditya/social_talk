@@ -17,7 +17,7 @@ class PetugasSearch extends Petugas
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia', 'role'], 'integer'],
+            [['id', 'id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['nama', 'no_telepon', 'alamat', 'tanggal_lahir', 'img'], 'safe'],
         ];
     }
@@ -65,7 +65,6 @@ class PetugasSearch extends Petugas
             'id_kota' => $this->id_kota,
             'tanggal_lahir' => $this->tanggal_lahir,
             'usia' => $this->usia,
-            'role' => $this->role,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

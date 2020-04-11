@@ -19,7 +19,6 @@ use app\models\User;
  * @property string $tanggal_lahir
  * @property int $usia
  * @property string $img
- * @property int $role
  *
  * @property AduanPetugas[] $aduanPetugas
  * @property Bagian $bagian
@@ -43,8 +42,8 @@ class Petugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia', 'img', 'role'], 'required'],
-            [['id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia', 'role'], 'integer'],
+            [['id_user', 'nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia', 'img'], 'required'],
+            [['id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['tanggal_lahir'], 'safe'],
             [['nama', 'no_telepon', 'alamat', 'img'], 'string', 'max' => 255],
             [['id_bagian'], 'exist', 'skipOnError' => true, 'targetClass' => Bagian::className(), 'targetAttribute' => ['id_bagian' => 'id']],
@@ -71,7 +70,6 @@ class Petugas extends \yii\db\ActiveRecord
             'tanggal_lahir' => 'Tanggal Lahir',
             'usia' => 'Usia',
             'img' => 'Img',
-            'role' => 'Role',
         ];
     }
 
