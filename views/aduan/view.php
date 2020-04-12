@@ -53,7 +53,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <div class="box-body">
             <p style="text-align: right;color:red;">
-                Dibuat Oleh : <?= Html::a($model->user->email, ['user/view', 'id' => $model->id_user]) ?>
+                <?php  
+                echo 'Dibuat Oleh : '. Html::a($model->masyarakat->nama, ['masyarakat/view', 'id' => $model->id_masyarakat]);
+                ?>
             </p>
             <p style="text-align: right;">
                 <i class="glyphicon glyphicon-calendar"></i> <?= $model->tanggal ?>

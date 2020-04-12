@@ -6,25 +6,32 @@ use Yii;
 
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-
     public $authKey;
     const MASYARAKAT = 1;
     const PETUGAS = 2;
     const ADMIN = 3;
-   
     public static function tableName()
     {
         return 'user';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
             [['email', 'password', 'role'], 'required'],
+            [['role', 'id_masyarakat', 'id_petugas'], 'integer'],
             [['email', 'password'], 'string', 'max' => 255],
+            [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
+            [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function attributeLabels()
     {
         return [
@@ -32,17 +39,29 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'email' => 'Email',
             'password' => 'Password',
             'role' => 'Role',
+            'id_masyarakat' => 'Id Masyarakat',
+            'id_petugas' => 'Id Petugas',
         ];
     }
 
-    public function getMasyarakats()
+    /**
+     * Gets query for [[Masyarakat]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMasyarakat()
     {
-        return $this->hasMany(Masyarakat::className(), ['id_user' => 'id']);
+        return $this->hasOne(Masyarakat::className(), ['id' => 'id_masyarakat']);
     }
 
+    /**
+     * Gets query for [[Petugas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getPetugas()
     {
-        return $this->hasMany(Petugas::className(), ['id_user' => 'id']);
+        return $this->hasOne(Petugas::className(), ['id' => 'id_petugas']);
     }
 
     public static function findIdentity($id)
@@ -94,94 +113,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->password === $password;
     }
 
-    public static function getNamaUser()
-    {
-        $model = Masyarakat::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->nama;
-        }
-        return null;
-    }
-
-    public static function getNamaPetugas()
-    {
-        $model = Petugas::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-        if ($model !== null) {
-            return $model->nama;
-        }
-        return null;
-    }
-
-    public static function getIdMasyarakat()
-    {
-        $model = Masyarakat::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->id;
-        }
-    }
-
-    public static function getIdPetugas()
-    {
-        $model = Petugas::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->id;
-        }
-    }
-
-    public static function getImgMasyarakat()
-    {
-        $model = Masyarakat::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->img;
-        }
-    }
-
-    public static function getImgPetugas()
-    {
-        $model = Petugas::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->img;
-        }
-    }
-
-    public static function getNikMasyarakat()
-    {
-        $model = Masyarakat::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-        if ($model !== null) {
-               return $model->nik;
-           }   
-    }
-
-    public static function getBagian()
-    {
-        $model = Petugas::find()
-            ->andWhere(['id_user' => Yii::$app->user->identity->id])
-            ->one();
-
-        if ($model !== null) {
-            return $model->bagian->nama;
-        }
-    }
-
     public static function isMasyarakat()
     {
         if (Yii::$app->user->identity->role == self::MASYARAKAT) {
@@ -209,4 +140,80 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         }
     }
 
+    public static function getImgMasyarakat()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_masyarakat])
+            ->one();
+
+        if ($model !== null) {
+           return $model->img;
+        }
+    }
+
+    public static function getImgPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_petugas])
+            ->one();
+
+        if ($model !== null) {
+           return $model->img;
+        }
+    }
+
+    public static function getNamaMasyarakat()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_masyarakat])
+            ->one();
+
+        if ($model !== null) {
+           return $model->nama;
+        }
+    }
+
+    public static function getNamaPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_petugas])
+            ->one();
+
+        if ($model !== null) {
+           return $model->nama;
+        }
+    }
+
+    public static function getIdPetugas()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_petugas])
+            ->one();
+
+        if ($model !== null) {
+           return $model->id;
+        }
+    }
+
+    public static function getIdMasyarakat()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_masyarakat])
+            ->one();
+
+        if ($model !== null) {
+           return $model->id;
+        }
+    }
+
+    public static function getNik()
+    {
+        $model = Masyarakat::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_masyarakat])
+            ->one();
+
+        if ($model !== null) {
+           return $model->nik;
+        }
+    }
 }

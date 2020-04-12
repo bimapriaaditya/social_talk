@@ -15,7 +15,7 @@ use app\models\Provinsi;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
+    <?= $form->field($model, 'id_masyarakat')->textInput() ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 

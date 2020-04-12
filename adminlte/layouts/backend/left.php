@@ -19,13 +19,14 @@ use yii\helpers\Html;
                     echo Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']);
                 }else{
                     echo Html::img('@PetugasImgUrl/' . User::getImgPetugas() , ['class' => 'img-circle']);
-                }?>
+                }
+                ?>
             </div>
             <div class="pull-left info">
                 <p>
                     <?php 
                     if (User::isMasyarakat()) {
-                        echo Html::a(User::getNamaUser(),['/masyarakat/view/','id' => User::getIdMasyarakat()]);
+                        echo Html::a(User::getNamaMasyarakat(),['/masyarakat/view/','id' => User::getIdMasyarakat()]);
                     }else{
                         echo Html::a(User::getNamaPetugas(),['/petugas/view/','id' => User::getIdPetugas()]);
                     }
@@ -34,7 +35,7 @@ use yii\helpers\Html;
                 <a href="#"><i class="fa fa-circle text-success"></i>
                     <?php
                     if (User::isMasyarakat()) {
-                        echo "NIK." . User::getNikMasyarakat();
+                        echo "NIK." . User::getNik();
                     }else{
                         echo User::getBagian();
                     }

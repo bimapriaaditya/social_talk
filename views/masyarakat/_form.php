@@ -14,8 +14,6 @@ use app\models\Kota;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_user')->textInput() ?>
-
     <?= $form->field($model, 'nik')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>

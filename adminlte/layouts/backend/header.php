@@ -240,7 +240,7 @@ use yii\helpers\Html;
                         <span class="hidden-xs">
                             <?php 
                             if (User::isMasyarakat()) {
-                                echo User::getNamaUser();
+                                echo User::getNamaMasyarakat();
                             }else{
                                 echo User::getNamaPetugas();
                             }?>
@@ -260,7 +260,7 @@ use yii\helpers\Html;
                                 if (User::isPetugas()) {
                                     echo User::getNamaPetugas();
                                 }else{
-                                    echo User::getNamaUser();
+                                    echo User::getNamaMasyarakat();
                             }?>
                                 <small><?= Yii::$app->user->identity->email; ?></small>
                             </p>
@@ -270,9 +270,9 @@ use yii\helpers\Html;
                             <div class="pull-left">
                                 <?php 
                                 if (User::isMasyarakat()) {
-                                    echo Html::a('Profile', ['/masyarakat/view/', 'id' => User::getIdMasyarakat()], ['class' => 'btn btn-default btn-flat']);
+                                    echo Html::a('Profile', ['/masyarakat/view/', 'id' => Yii::$app->user->identity->id_masyarakat], ['class' => 'btn btn-default btn-flat']);
                                 }else{
-                                    echo Html::a('Profile', ['/petugas/view/', 'id' => User::getIdPetugas()], ['class' => 'btn btn-default btn-flat']);
+                                    echo Html::a('Profile', ['/petugas/view/', 'id' => Yii::$app->user->identity->id_petugas], ['class' => 'btn btn-default btn-flat']);
                                 }?>
                             </div>
                             <div class="pull-right">

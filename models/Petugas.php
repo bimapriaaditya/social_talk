@@ -3,13 +3,11 @@
 namespace app\models;
 
 use Yii;
-use app\models\User;
 
 /**
  * This is the model class for table "petugas".
  *
  * @property int $id
- * @property int $id_user
  * @property string $nama
  * @property int $id_bagian
  * @property string $no_telepon
@@ -24,7 +22,7 @@ use app\models\User;
  * @property Bagian $bagian
  * @property Provinsi $provinsi
  * @property Kota $kota
- * @property User $user
+ * @property User[] $users
  */
 class Petugas extends \yii\db\ActiveRecord
 {
@@ -42,14 +40,13 @@ class Petugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia', 'img'], 'required'],
-            [['id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
+            [['nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia', 'img'], 'required'],
+            [['id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['tanggal_lahir'], 'safe'],
             [['nama', 'no_telepon', 'alamat', 'img'], 'string', 'max' => 255],
             [['id_bagian'], 'exist', 'skipOnError' => true, 'targetClass' => Bagian::className(), 'targetAttribute' => ['id_bagian' => 'id']],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -60,7 +57,6 @@ class Petugas extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_user' => 'Id User',
             'nama' => 'Nama',
             'id_bagian' => 'Id Bagian',
             'no_telepon' => 'No Telepon',
@@ -114,17 +110,12 @@ class Petugas extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[User]].
+     * Gets query for [[Users]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getUsers()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
-    }
-
-    public function setUserPetugas()
-    {
-        // Set Kondisi if (id_petugas == $IdInUser) return 2;
+        return $this->hasMany(User::className(), ['id_petugas' => 'id']);
     }
 }

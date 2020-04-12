@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "aduan".
  *
  * @property int $id
- * @property int $id_user
+ * @property int $id_masyarakat
  * @property string $nama
  * @property string $tanggal
  * @property int $id_kategori
@@ -24,7 +24,7 @@ use Yii;
  * @property Provinsi $provinsi
  * @property Kota $kota
  * @property Kategori $kategori
- * @property User $user
+ * @property Masyarakat $masyarakat
  * @property AduanMasyarakat[] $aduanMasyarakats
  * @property AduanPetugas[] $aduanPetugas
  * @property AduanTanggapan[] $aduanTanggapans
@@ -45,15 +45,15 @@ class Aduan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_user', 'nama', 'tanggal', 'id_kategori', 'id_provinsi', 'id_kota', 'keterangan_tempat', 'deskripsi', 'sifat'], 'required'],
-            [['id_user', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat'], 'integer'],
+            [['id_masyarakat', 'nama', 'tanggal', 'id_kategori', 'id_provinsi', 'id_kota', 'keterangan_tempat', 'deskripsi', 'sifat'], 'required'],
+            [['id_masyarakat', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat'], 'integer'],
             [['tanggal'], 'safe'],
             [['keterangan_tempat', 'deskripsi'], 'string'],
             [['nama', 'img_bukti_1', 'img_bukti_2', 'img_bukti_3'], 'string', 'max' => 255],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],
             [['id_kategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['id_kategori' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
+            [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
         ];
     }
 
@@ -64,7 +64,7 @@ class Aduan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_user' => 'Id User',
+            'id_masyarakat' => 'Id Masyarakat',
             'nama' => 'Nama',
             'tanggal' => 'Tanggal',
             'id_kategori' => 'Id Kategori',
@@ -110,13 +110,13 @@ class Aduan extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[User]].
+     * Gets query for [[Masyarakat]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getMasyarakat()
     {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
+        return $this->hasOne(Masyarakat::className(), ['id' => 'id_masyarakat']);
     }
 
     /**
@@ -166,5 +166,4 @@ class Aduan extends \yii\db\ActiveRecord
         $path = Yii::getAlias('@Bukti3ImgPath') . '/' . $this->img_bukti_3;
         return unlink($path);
     }
-
 }

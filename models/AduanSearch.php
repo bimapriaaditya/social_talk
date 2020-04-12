@@ -17,7 +17,7 @@ class AduanSearch extends Aduan
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat'], 'integer'],
+            [['id', 'id_masyarakat', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat'], 'integer'],
             [['nama', 'tanggal', 'keterangan_tempat', 'deskripsi', 'img_bukti_1', 'img_bukti_2', 'img_bukti_3'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class AduanSearch extends Aduan
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_user' => $this->id_user,
+            'id_masyarakat' => $this->id_masyarakat,
             'tanggal' => $this->tanggal,
             'id_kategori' => $this->id_kategori,
             'id_provinsi' => $this->id_provinsi,
