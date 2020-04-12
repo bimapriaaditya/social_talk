@@ -5,9 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\Petugas;
 use app\models\PetugasSearch;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * PetugasController implements the CRUD actions for Petugas model.
@@ -64,7 +65,20 @@ class PetugasController extends Controller
     {
         $model = new Petugas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $PetugasImg = UploadedFile::getInstance($model, 'img');
+
+            if ($PetugasImg !== null) {
+                $nama = date('Ymdhis') . 'Photo_Picture_' . $model->nama . '.' . $PetugasImg->getExtension();
+                $model->img = $nama;
+
+            }
+            if ($model->save()) {
+                if ($PetugasImg !== null) {
+                    $PetugasImg->saveAs(Yii::getAlias('@PetugasImgPath') . '/' . $nama );
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -84,7 +98,20 @@ class PetugasController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $PetugasImg = UploadedFile::getInstance($model, 'img');
+
+            if ($PetugasImg !== null) {
+                $nama = date('Ymdhis') . 'Photo_Picture_' . $model->nama . '.' . $PetugasImg->getExtension();
+                $model->img = $nama;
+
+            }
+            if ($model->save()) {
+                if ($PetugasImg !== null) {
+                    $PetugasImg->saveAs(Yii::getAlias('@PetugasImgPath') . '/' . $nama );
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
