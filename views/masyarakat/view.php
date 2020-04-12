@@ -127,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="tab-pane" id="aduanku">
                         <?php 
-                        foreach(Aduan::find()->andWhere(['id_user' => Yii::$app->user->identity->id])->all() as $AduanKu):?>
+                        foreach(Aduan::find()->andWhere(['id_user' => $model->id])->all() as $AduanKu):?>
                             <div class="post">
                                 <div class="user-block">
                                     <h3>
