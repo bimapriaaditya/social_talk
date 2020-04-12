@@ -226,6 +226,7 @@ use yii\helpers\Html;
                         </li>
                     </ul>
                 </li>
+
                 <!-- User Account: style can be found in dropdown.less -->
 
                 <li class="dropdown user user-menu">
@@ -267,7 +268,12 @@ use yii\helpers\Html;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <?php 
+                                if (User::isMasyarakat()) {
+                                    echo Html::a('Profile', ['/masyarakat/view/', 'id' => User::getIdMasyarakat()], ['class' => 'btn btn-default btn-flat']);
+                                }else{
+                                    echo Html::a('Profile', ['/petugas/view/', 'id' => User::getIdPetugas()], ['class' => 'btn btn-default btn-flat']);
+                                }?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(
