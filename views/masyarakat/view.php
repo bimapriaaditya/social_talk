@@ -1,8 +1,10 @@
 <?php
 
+use app\models\Aduan;
+use app\models\Masyarakat;
+use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use app\models\Aduan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Masyarakat */
@@ -126,8 +128,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]) ?>
                     </div>
                     <div class="tab-pane" id="aduanku">
-                        <?php 
-                        foreach(Aduan::find()->andWhere(['id_user' => $model->id])->all() as $AduanKu):?>
+                        <?php
+                        foreach(Aduan::find()->andWhere(['id_user' => $model->id_user])->all() as $AduanKu):?>
                             <div class="post">
                                 <div class="user-block">
                                     <h3>
