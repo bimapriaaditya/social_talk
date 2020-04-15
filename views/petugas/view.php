@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <b>Total Aduan Ditolak</b> <a class="pull-right">13,287</a>
                             </li>
                         </ul>
-                        <?= Html::a('Buat Aduan',['/aduan/create/'],['class' => 'btn btn-primary btn-block']); ?>
+                        <?= Html::a('Edit Profile',['/petugas/update/', 'id' => $model->id],['class' => 'btn btn-success btn-block']); ?>
                     </div>
                 </div>
                 <div class="box box-primary">

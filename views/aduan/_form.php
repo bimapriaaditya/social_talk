@@ -1,10 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
 use app\models\Kategori;
 use app\models\Kota;
 use app\models\Provinsi;
+use kartik\date\DatePicker;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -15,11 +16,16 @@ use app\models\Provinsi;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_masyarakat')->textInput() ?>
-
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'tanggal')->widget(DatePicker::classname(),[
+        'name' => 'anniversary',
+        'readonly' => true,
+        'pluginOptions' => [
+            'autoclose' => true,
+            'format' => 'yyyy-m-dd'
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'id_kategori')->dropDownList(Kategori::getList(), ['prompt' => '--- Kategori Aduan ---']); ?>
 
@@ -37,7 +43,7 @@ use app\models\Provinsi;
 
     <?= $form->field($model, 'img_bukti_3')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sifat')->textInput() ?>
+    <?= $form->field($model, 'sifat')->dropDownList([ 'prompt' => '--- Umum / Rahasia ---' ,'1' => 'Public (Umum)', '2' => 'Private (Rahasia)']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

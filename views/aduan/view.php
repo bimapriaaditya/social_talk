@@ -19,16 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('<b> Perbarui </b> <i class="glyphicon glyphicon-edit"></i>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<b> Hapus </b><i class="glyphicon glyphicon-trash"></i>', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <?php if ($model->id_masyarakat == Yii::$app->user->identity->id_masyarakat || User::isPetugas()): ?>
+        <p>
+            <?php if ($model->id_masyarakat == Yii::$app->user->identity->id_masyarakat) {
+                echo Html::a('<b> Perbarui </b> <i class="glyphicon glyphicon-edit"></i>', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']);
+            } ?>
+            <?= Html::a('<b> Hapus </b><i class="glyphicon glyphicon-trash"></i>', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
+    <?php endif ?>
+
     <div class="box box-danger">
         <div class="box-header with-border">
             <div class="row">
@@ -37,17 +42,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-2" style="text-align: right;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning">Action</button>
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" style="color: blue;">DITERIMA</a></li>
-                            <li><a href="#" style="color: orange;">DIPROSES</a></li>
-                            <li><a href="#" style="color: red;">DITUTUP</a></li>
-                        </ul>
-                    </div>
+                    <?php if (User::isPetugas()): ?>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning">Action</button>
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" style="color: blue;">DITERIMA</a></li>
+                                <li><a href="#" style="color: orange;">DIPROSES</a></li>
+                                <li><a href="#" style="color: red;">DITUTUP</a></li>
+                            </ul>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
@@ -170,136 +177,138 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-    <div class="row">
-        <!-- Comment Masyarakat -->
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">KOLOM TANGGAPAN MASYARAKAT</h3>
-                </div>
-                <div class="box-body">
-                    <!-- <?php 
-                    $no = 1;
-                    foreach(AduanMasyarakat::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanMasyarakat):?>
-                    <?php endforeach ?> -->
-                    <div class="box-footer box-comments">
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
-
-                            <div class="comment-text">
-                                <span class="username">
-                                    Maria Gonzales
-                                    <a href="">Edit</a>
-                                    <a href="">Hapus</a>
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span> <!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
-                            </div>
-                        <!-- /.comment-text -->
-                        </div>
-                        <!-- /.box-comment -->
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
-                            <div class="comment-text">
-                                <span class="username">
-                                    Luna Stark
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span><!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
-                            </div>
-                        <!-- /.comment-text -->
-                        </div>
+    <?php if (User::isMasyarakat()): ?>
+        <div class="row">
+            <!-- Comment Masyarakat -->
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">KOLOM TANGGAPAN MASYARAKAT</h3>
                     </div>
-                </div>
-                <div class="box-footer"></div>
-            </div>
-        </div>
-        <!-- Comment Petugas dan Pelapor -->
-        <div class="col-md-6">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
-                </div>
-                <div class="box-body">
-                    <!-- <?php 
-                    $no = 1;
-                    foreach(AduanPetugas::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanPetugas):?>
-                    <?php endforeach ?> -->
-                    <div class="box-footer box-comments">
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+                    <div class="box-body">
+                        <!-- <?php 
+                        $no = 1;
+                        foreach(AduanMasyarakat::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanMasyarakat):?>
+                        <?php endforeach ?> -->
+                        <div class="box-footer box-comments">
+                            <div class="box-comment">
+                            <!-- User image -->
+                                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
 
-                            <div class="comment-text">
-                                <span class="username">
-                                    Maria Gonzales
-                                    <a href="">Edit</a>
-                                    <a href="">Hapus</a>
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span> <!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
+                                <div class="comment-text">
+                                    <span class="username">
+                                        Maria Gonzales
+                                        <a href="">Edit</a>
+                                        <a href="">Hapus</a>
+                                        <span class="text-muted pull-right">8:03 PM Today</span>
+                                    </span> <!-- /.username -->
+                                    It is a long established fact that a reader will be distracted
+                                    by the readable content of a page when looking at its layout.
+                                </div>
+                            <!-- /.comment-text -->
                             </div>
-                        <!-- /.comment-text -->
-                        </div>
-                        <!-- /.box-comment -->
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
-                            <div class="comment-text">
-                                <span class="username">
-                                    Luna Stark
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span><!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
+                            <!-- /.box-comment -->
+                            <div class="box-comment">
+                            <!-- User image -->
+                                <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
+                                <div class="comment-text">
+                                    <span class="username">
+                                        Luna Stark
+                                        <span class="text-muted pull-right">8:03 PM Today</span>
+                                    </span><!-- /.username -->
+                                    It is a long established fact that a reader will be distracted
+                                    by the readable content of a page when looking at its layout.
+                                </div>
+                            <!-- /.comment-text -->
                             </div>
-                        <!-- /.comment-text -->
                         </div>
                     </div>
                     <div class="box-footer"></div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <!-- Form Tanggapan Masyarakat -->
-        <div class="col-md-6">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Form Tanggapan Masyarakat</h3>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Beri Tanggapan :</label>
-                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+            <!-- Comment Petugas dan Pelapor -->
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
+                    <div class="box-body">
+                        <!-- <?php 
+                        $no = 1;
+                        foreach(AduanPetugas::find()->andWhere(['id_aduan' => $model->id])->all() as $AduanPetugas):?>
+                        <?php endforeach ?> -->
+                        <div class="box-footer box-comments">
+                            <div class="box-comment">
+                            <!-- User image -->
+                                <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                                <div class="comment-text">
+                                    <span class="username">
+                                        Maria Gonzales
+                                        <a href="">Edit</a>
+                                        <a href="">Hapus</a>
+                                        <span class="text-muted pull-right">8:03 PM Today</span>
+                                    </span> <!-- /.username -->
+                                    It is a long established fact that a reader will be distracted
+                                    by the readable content of a page when looking at its layout.
+                                </div>
+                            <!-- /.comment-text -->
+                            </div>
+                            <!-- /.box-comment -->
+                            <div class="box-comment">
+                            <!-- User image -->
+                                <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
+                                <div class="comment-text">
+                                    <span class="username">
+                                        Luna Stark
+                                        <span class="text-muted pull-right">8:03 PM Today</span>
+                                    </span><!-- /.username -->
+                                    It is a long established fact that a reader will be distracted
+                                    by the readable content of a page when looking at its layout.
+                                </div>
+                            <!-- /.comment-text -->
+                            </div>
+                        </div>
+                        <div class="box-footer"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Form tanggapan Petugas -->
-        <div class="col-md-6">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Form Tanggapan Petugas</h3>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label>Beri Tanggapan :</label>
-                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+        <div class="row">
+            <!-- Form Tanggapan Masyarakat -->
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Form Tanggapan Masyarakat</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Beri Tanggapan :</label>
+                            <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
                     </div>
                 </div>
-                <div class="box-footer">
-                    <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
+            </div>
+            <!-- Form tanggapan Petugas -->
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Form Tanggapan Petugas</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Beri Tanggapan :</label>
+                            <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif ?>
 </div>

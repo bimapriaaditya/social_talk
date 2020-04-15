@@ -98,6 +98,8 @@ class PetugasController extends Controller
     {
         $model = $this->findModel($id);
 
+        $PetugasLama = $model->img;
+        
         if ($model->load(Yii::$app->request->post())) {
 
             $PetugasImg = UploadedFile::getInstance($model, 'img');
@@ -105,7 +107,8 @@ class PetugasController extends Controller
             if ($PetugasImg !== null) {
                 $nama = date('Ymdhis') . 'Photo_Picture_' . $model->nama . '.' . $PetugasImg->getExtension();
                 $model->img = $nama;
-
+            }else{
+                $model->img = $PetugasLama; 
             }
             if ($model->save()) {
                 if ($PetugasImg !== null) {

@@ -104,10 +104,14 @@ class MasyarakatController extends Controller
             if ($MasyarakatImg !== null) {
                 $MasyarakatNama = date('Ymdhis') . '_Photo-Picture_' . $model->nama . '.' . $MasyarakatImg->getExtension();
                 $model->img = $MasyarakatNama;
-                $MasyarakatImg->saveAs(Yii::getAlias('@MasyarakatImgPath') . '/' . $MasyarakatNama);
+                
             }
 
-            $model->save();
+            if ($model->save()) {
+                if ($MasyarakatImg !== null) {
+                    $MasyarakatImg->saveAs(Yii::getAlias('@MasyarakatImgPath') . '/' . $MasyarakatNama);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

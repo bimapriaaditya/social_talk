@@ -17,7 +17,7 @@ class PetugasSearch extends Petugas
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
+            [['id', 'id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['nama', 'no_telepon', 'alamat', 'tanggal_lahir', 'img'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class PetugasSearch extends Petugas
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_user' => $this->id_user,
             'id_bagian' => $this->id_bagian,
             'id_provinsi' => $this->id_provinsi,
             'id_kota' => $this->id_kota,

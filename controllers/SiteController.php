@@ -84,7 +84,13 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            $this->redirect(['aduan/index']);
+            /*If user == Petugas*/
+            if (Yii::$app->user->identity->id_masyarakat == null) {
+                $this->redirect(['aduan/index']);
+            }else{
+                /*Else User == Masyarakat*/
+                $this->redirect(['aduan/user-index']);
+            }
         }
 
         $model->password = '';

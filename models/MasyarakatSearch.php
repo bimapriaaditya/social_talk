@@ -17,7 +17,7 @@ class MasyarakatSearch extends Masyarakat
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
+            [['id', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['nik', 'nama', 'no_telepon', 'alamat', 'tanggal_lahir', 'img'], 'safe'],
         ];
     }
@@ -59,7 +59,6 @@ class MasyarakatSearch extends Masyarakat
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_user' => $this->id_user,
             'id_provinsi' => $this->id_provinsi,
             'id_kota' => $this->id_kota,
             'tanggal_lahir' => $this->tanggal_lahir,

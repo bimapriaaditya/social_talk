@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "bagian".
@@ -52,5 +53,11 @@ class Bagian extends \yii\db\ActiveRecord
     public function getPetugas()
     {
         return $this->hasMany(Petugas::className(), ['id_bagian' => 'id']);
+    }
+
+    public static function getList()
+    {
+        $query = Bagian::find()->orderBy(['id' => SORT_ASC])->all();
+        return ArrayHelper::map($query, 'id', 'nama');   
     }
 }

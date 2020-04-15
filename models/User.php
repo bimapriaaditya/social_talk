@@ -216,4 +216,15 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
            return $model->nik;
         }
     }
+
+    public static function getBagian()
+    {
+        $model = Petugas::find()
+            ->andWhere(['id' => Yii::$app->user->identity->id_petugas])
+            ->one();
+
+        if ($model !== null) {
+            return $model->bagian->nama;
+        }
+    }
 }

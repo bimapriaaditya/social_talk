@@ -78,6 +78,8 @@ class AduanController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            $model->id_masyarakat = Yii::$app->user->identity->id_masyarakat;
+
             $Bukti1Img = UploadedFile::getInstance($model, 'img_bukti_1');
             $Bukti2Img = UploadedFile::getInstance($model, 'img_bukti_2');
             $Bukti3Img = UploadedFile::getInstance($model, 'img_bukti_3');
