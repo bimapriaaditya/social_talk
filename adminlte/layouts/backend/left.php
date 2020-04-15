@@ -60,35 +60,36 @@ use yii\helpers\Html;
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
-                    ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
                     [
-                        'label' => 'Some tools',
-                        'icon' => 'share',
+                        'label' => 'Menu Social Talk', 
+                        'icon' => 'dashboard',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],
-                            ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'],],
-                            [
-                                'label' => 'Level One',
-                                'icon' => 'circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                                    [
-                                        'label' => 'Level Two',
-                                        'icon' => 'circle-o',
-                                        'url' => '#',
-                                        'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                        ],
-                                    ],
-                                ],
-                            ],
+                            ['label' => 'Index Petugas', 'icon' => 'user-plus', 'url' => ['aduan/index'],],
+                            ['label' => 'Index Masyarakat', 'icon' => 'user', 'url' => ['aduan/user-index'],],
+                        ] 
+                    ],
+                    ['label' => 'Kategori Aduan', 'icon' => 'clone', 'url' => ['kategori/create']],
+                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    [
+                        'label' => 'Users',
+                        'icon' => 'users',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Masyarakat', 'icon' => 'child', 'url' => ['masyarakat/index'],],
+                            ['label' => 'Petugas', 'icon' => 'male', 'url' => ['petugas/index'],],
+                            ['label' => 'Admin', 'icon' => 'key', 'url' => ['petugas/index'],],
                         ],
+                    ],
+                    [
+                        'label' => 'Rekapitulasi',
+                        'icon' => 'pie-chart',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Harian', 'icon' => 'line-chart', 'url' => ['aduan/create']],
+                            ['label' => 'Diterima', 'icon' => 'area-chart', 'url' => ['aduan/create']],
+                            ['label' => 'Ditolak', 'icon' => 'bar-chart', 'url' => ['aduan/create']],
+                        ]
                     ],
                 ],
             ]
