@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
  */
 class MasyarakatController extends Controller
 {
-    public $layout = 'backend/main';
+    public $layout = 'backend/main-masyarakat';
     public function behaviors()
     {
         return [

@@ -233,9 +233,9 @@ use yii\helpers\Html;
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <?php 
                         if (User::isMasyarakat()) {
-                            Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat(), ['class' => 'user-image']);
+                            echo Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat(), ['class' => 'user-image']);
                         }else{
-                            Html::img('@PetugasImgUrl/' . User::getImgPetugas(), ['class' => 'user-image']);
+                            echo Html::img('@PetugasImgUrl/' . User::getImgPetugas(), ['class' => 'user-image']);
                         }?>
                         <span class="hidden-xs">
                             <?php 

@@ -47,6 +47,7 @@ class AduanController extends Controller
 
     public function actionUserIndex()
     {
+        $this->layout = 'backend/main-masyarakat';
         $searchModel = new AduanSearch();
         $dataProvider = new ActiveDataProvider([
             'query' => Aduan::find()->orderBy(['id' => SORT_ASC]),
