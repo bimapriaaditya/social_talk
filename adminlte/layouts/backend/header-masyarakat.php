@@ -37,11 +37,12 @@ use yii\helpers\Html;
                   <?= Html::a('Profile', ['/masyarakat/view/', 'id' => Yii::$app->user->identity->id_masyarakat], ['class' => 'btn btn-default btn-flat']); ?>
                 </div>
                 <div class="pull-right">
-                  <?= Html::a(
-                      'Sign out',
-                      ['/site/logout'],
-                      ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                  ) ?>
+                  <?php echo Html::beginForm(['/site/logout'], 'post');
+                  echo Html::submitButton(
+                    'Sign out',
+                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                  );
+                  Html::endForm()?>
                 </div>
               </li>
             </ul>
