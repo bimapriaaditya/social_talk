@@ -1,8 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
 use app\models\Aduan;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AduanSearch */
@@ -20,7 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    /*if petugas */
     ?>
     <div class="row">
         <div class="col-md-12">
@@ -77,56 +78,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col col-md-1"></div>
         <div class="col col-md-10">
-            <?php 
-            foreach (Aduan::find()->orderBy(['id' => SORT_ASC])->all() as $Aduan):?>
-                <div class="box box-widget" style="border-radius: 20px;">
-                    <div class="box-header with-border">
-                      <div class="user-block">
-                         <?php 
-                         echo Html::img('@MasyarakatImgUrl/' . $Aduan->masyarakat->img, ['class' => 'img-circle']); ?>
-                        <span class="username">
-                            <?= Html::a($Aduan->masyarakat->nama,['masyarakat/view', 'id' => $Aduan->id_masyarakat]); ?>
-                        </span>
-                        <span class="username">
-                            <?= Html::a($Aduan->nama, ['aduan/view', 'id' => $Aduan->id]); ?>
-                        </span>
-                        <span class="description">Dibuat <?= $Aduan->tanggal ?></span>
-                      </div>
-                      <!-- /.user-block -->
-                      <div class="box-tools">
-                        <?= Html::a('<i class="fa fa-share"></i>', ['aduan/view', 'id' => $Aduan->id]); ?>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                      </div>
-                      <!-- /.box-tools -->
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                      <!-- post text -->
-                      <p>
-                          <?= $Aduan->provinsi->nama . '  ' . '-' . '  ' . $Aduan->kota->nama ?>
-                      </p>
-                      <p>
-                          <?= $Aduan->deskripsi ?>
-                      </p>
 
-                      <!-- Attachment -->
-                      <div class="attachment-block clearfix">
-                        <?= Html::img('@Bukti1ImgUrl/'.$Aduan->img_bukti_1,['width' => '100px', 'height' => '100px']) ?>
-                        <span style="padding-left: 10px;"></span>
+        	 <?php Pjax::begin(); ?>
 
-                        <?= Html::img('@Bukti2ImgUrl/'.$Aduan->img_bukti_2,['width' => '100px', 'height' => '100px']) ?>
-                        
-                        <span style="padding-left: 10px;"></span>
-                        <?= Html::img('@Bukti3ImgUrl/'.$Aduan->img_bukti_3,['width' => '100px', 'height' => '100px']) ?>
-                        <!-- /.attachment-pushed -->
-                      </div>
-                      <!-- /.attachment-block -->
-                      <span class="pull-right text-muted">45 likes - 2 comments</span>
-                    </div>
-                </div>
-            <?php endforeach ?>
+        	    <?= ListView::widget([
+				    'dataProvider' => $dataProvider,
+				    'itemView' => '_daftar',
+				]); ?>
+
+			 <?php Pjax::end(); ?>
+
         </div>
         <div class="col col-md-1"></div>
     </div>

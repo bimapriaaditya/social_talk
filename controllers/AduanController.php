@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Aduan;
 use app\models\AduanSearch;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -46,7 +48,11 @@ class AduanController extends Controller
     public function actionUserIndex()
     {
         $searchModel = new AduanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Aduan::find()->orderBy(['id' => SORT_ASC]),
+            'pagination' => [
+                'pageSize' => 25,
+        ]]);
 
         return $this->render('user_index', [
             'searchModel' => $searchModel,

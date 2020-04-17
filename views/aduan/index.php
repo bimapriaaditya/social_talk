@@ -12,7 +12,7 @@ use yii\helpers\Html;
 /* @var $searchModel app\models\AduanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ruang Aduan Publik';
+$this->title = 'Ruang Aduan Petugas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="aduan-index">
@@ -62,5 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>        
+    ]);
+    ?>
 </div>
