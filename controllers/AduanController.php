@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Aduan;
 use app\models\AduanSearch;
+use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\filters\VerbFilter;
@@ -47,10 +48,20 @@ class AduanController extends Controller
 
     public function actionUserIndex()
     {
-        $this->layout = 'backend/main-masyarakat';
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $searchModel = new AduanSearch();
         $dataProvider = new ActiveDataProvider([
             'query' => Aduan::find()->orderBy(['id' => SORT_ASC]),
+            'pagination' => [
+                'pageSize' => 25,
+        ]]);
+
+        $dataProviderKu = new ActiveDataProvider([
+            'query' => Aduan::find()
+                ->andWhere(['id_masyarakat' => Yii::$app->user->identity->id_masyarakat])
+                ->all(),
             'pagination' => [
                 'pageSize' => 25,
         ]]);
@@ -69,6 +80,9 @@ class AduanController extends Controller
      */
     public function actionView($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -81,6 +95,9 @@ class AduanController extends Controller
      */
     public function actionCreate()
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $model = new Aduan();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -128,6 +145,9 @@ class AduanController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $model = $this->findModel($id);
 
         $Bukti1Img_lama = $model->img_bukti_1;

@@ -20,10 +20,14 @@ use dmstr\widgets\Alert;
     </section>
 
     <section class="content">
-        <?= Alert::widget() ?>
-        <div class="container">
-            <?= $content ?>
-        </div>
+        <?= Alert::widget();
+        if (Yii::$app->user->identity->id_masyarakat !== null):?>
+            <div class="container">
+                <?= $content ?>
+            </div>
+            <?php else: ?>
+                <?= $content ?>                
+        <?php endif ?>
     </section>
 </div>
 

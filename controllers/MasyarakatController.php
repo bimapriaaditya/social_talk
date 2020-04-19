@@ -5,17 +5,18 @@ namespace app\controllers;
 use Yii;
 use app\models\Masyarakat;
 use app\models\MasyarakatSearch;
+use app\models\User;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
-use yii\filters\VerbFilter;
 
 /**
  * MasyarakatController implements the CRUD actions for Masyarakat model.
  */
 class MasyarakatController extends Controller
 {
-    public $layout = 'backend/main-masyarakat';
+    public $layout = 'backend/main';
     public function behaviors()
     {
         return [
@@ -34,6 +35,9 @@ class MasyarakatController extends Controller
      */
     public function actionIndex()
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $searchModel = new MasyarakatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +55,9 @@ class MasyarakatController extends Controller
      */
     public function actionView($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -63,6 +70,9 @@ class MasyarakatController extends Controller
      */
     public function actionCreate()
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $model = new Masyarakat();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -95,6 +105,9 @@ class MasyarakatController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
