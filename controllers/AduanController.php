@@ -56,7 +56,8 @@ class AduanController extends Controller
             'query' => Aduan::find()->orderBy(['id' => SORT_ASC]),
             'pagination' => [
                 'pageSize' => 25,
-        ]]);
+            ]
+        ]);
 
         $dataProviderKu = new ActiveDataProvider([
             'query' => Aduan::find()

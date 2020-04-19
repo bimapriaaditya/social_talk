@@ -3,8 +3,11 @@
 use app\models\Aduan;
 use app\models\Masyarakat;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Masyarakat */
@@ -125,39 +128,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'value' => $model->usia . ' Tahun'
                                 ],
                             ],
-                        ]) ?>
+                        ]) ?>`
                     </div>
                     <div class="tab-pane" id="aduanku">
-                        <?php
-                        foreach(Aduan::find()->andWhere(['id_masyarakat' => $model->id])->all() as $AduanKu):?>
-                            <div class="post">
-                                <div class="user-block">
-                                    <h3>
-                                        <?= $AduanKu->nama ?>
-                                    </h3>
-                                    <span class="description">Diunggah  - <?= $AduanKu->tanggal ?></span>
-                                </div>
-                                <p>
-                                    <?= substr($AduanKu->deskripsi, 0, 255) . '...'; ?>
-                                </p>
-                                <div class="col-sm-4">
-                                    <?= Html::a('Lebih <i class="glyphicon glyphicon-eye-open"></i>',['aduan/view', 'id' => $AduanKu->id], ['class' => 'btn btn-primary btn-block']) ?>
-                                </div>
-                                <div class="col-sm-4">
-                                    <?= Html::a('Perbaiki <i class="glyphicon glyphicon-edit"></i>',['aduan/update', 'id' => $AduanKu->id], ['class' => 'btn btn-success btn-block']) ?>
-                                </div>
-                                <div class="col-sm-4">
-                                    <?= Html::a('Hapus <i class="glyphicon glyphicon-trash"></i>', ['aduan/delete', 'id' => $AduanKu->id], [
-                                            'class' => 'btn btn-danger btn-block',
-                                            'data' => [
-                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                'method' => 'post',
-                                            ],
-                                        ]) ?>
-                                </div>
-                                <div>&nbsp;</div>
-                            </div>
-                        <?php endforeach ?>
+                        <?php 
+                            $dataProvider = new ActiveDataProvider([
+                                'query' => Aduan::find()
+                                    ->andWhere(['id_masyarakat' => $model->id])
+                                    ->orderBy(['tanggal' => SORT_ASC]),
+                                'pagination' => [
+                                    'pageSize' => 25
+                                ]
+                            ]); 
+                        ?>
+                        <?= ListView::widget([
+                            'dataProvider' => $dataProvider,
+                            'itemView' => '_daftar',
+                        ]);?>
                     </div>
                 </div>
             </div>
