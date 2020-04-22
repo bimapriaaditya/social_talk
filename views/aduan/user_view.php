@@ -1,13 +1,11 @@
 <?php
 
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 use app\models\Aduan;
 use app\models\AduanMasyarakat;
 use app\models\AduanPetugas;
 use app\models\User;
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\widgets\DetailView;
-use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -179,10 +177,53 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="box box-success">
+    <div class="row">
+        <!-- Comment Masyarakat -->
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">KOLOM TANGGAPAN MASYARAKAT</h3>
+                </div>
+                <div class="box-body">
+                    <div class="box-footer box-comments">
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    Maria Gonzales
+                                    <a href="">Edit</a>
+                                    <a href="">Hapus</a>
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span> <!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                        <!-- /.box-comment -->
+                        <div class="box-comment">
+                        <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
+                            <div class="comment-text">
+                                <span class="username">
+                                    Luna Stark
+                                    <span class="text-muted pull-right">8:03 PM Today</span>
+                                </span><!-- /.username -->
+                                It is a long established fact that a reader will be distracted
+                                by the readable content of a page when looking at its layout.
+                            </div>
+                        <!-- /.comment-text -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer"></div>
+            </div>
+        </div>
+        <!-- Comment Petugas dan Pelapor -->
+        <div class="col-md-6">
+            <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
                 </div>
@@ -219,49 +260,45 @@ $this->params['breadcrumbs'][] = $this->title;
                         <!-- /.comment-text -->
                         </div>
                     </div>
-                    <div class="box-footer">
-                        <label>Beri Tanggapan :</label>
-                        <?php 
-                        $lorem = new AduanPetugas();
-
-
-                            $form = ActiveForm::begin([
-                                'action' => ['/aduan-petugas/create']
-                            ]);
-                            ?>
-                            <?= $form->field($lorem, 'id')
-                                ->hiddenInput()
-                                ->label(false) ?>
-
-                            <?= $form->field($lorem, 'id_aduan')
-                                ->hiddenInput(['value' => $model->id])
-                                ->label(false) ?>
-
-                            <?= $form->field($lorem, 'id_petugas')
-                                ->hiddenInput(['value' => Yii::$app->user->identity->id_petugas])
-                                ->label(false) ?>
-
-                            <?= $form->field($lorem, 'text')
-                                ->textarea(['rows' => 6])
-                                ->label(false) ?>
-
-                            <?= $form->field($lorem, 'tanggal')
-                                ->hiddenInput(['value' => date('Ymd')])
-                                ->label(false) ?>
-
-                        <?php Pjax::begin(); ?>
-                            <div class="form-group">
-                                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-                            </div>
-                        <?php Pjax::end(); ?>
-                            <?php ActiveForm::end(); 
-
-
-                        ?>
-                    </div>
+                    <div class="box-footer"></div>
                 </div>
             </div>
-            </div>
-            <div class="col-md-2"></div>
         </div>
+    </div>
+    <div class="row">
+        <!-- Form Tanggapan Masyarakat -->
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Form Tanggapan Masyarakat</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Beri Tanggapan :</label>
+                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
+                </div>
+            </div>
+        </div>
+        <!-- Form tanggapan Petugas -->
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Form Tanggapan Petugas</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Beri Tanggapan :</label>
+                        <textarea class="form-control" rows="6" placeholder="Tambahkan Tanggapan..."></textarea>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a href="" class="btn btn-success btn-block">Kirim <i class="fa fa-send"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Aduan;
+use app\models\AduanPetugas;
 use app\models\AduanSearch;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -53,19 +54,13 @@ class AduanController extends Controller
         }
         $searchModel = new AduanSearch();
         $dataProvider = new ActiveDataProvider([
-            'query' => Aduan::find()->orderBy(['id' => SORT_ASC]),
+            'query' => Aduan::find()
+            ->andWhere(['sifat' => 1])
+            ->orderBy(['id' => SORT_ASC]),
             'pagination' => [
                 'pageSize' => 25,
             ]
         ]);
-
-        $dataProviderKu = new ActiveDataProvider([
-            'query' => Aduan::find()
-                ->andWhere(['id_masyarakat' => Yii::$app->user->identity->id_masyarakat])
-                ->all(),
-            'pagination' => [
-                'pageSize' => 25,
-        ]]);
 
         return $this->render('user_index', [
             'searchModel' => $searchModel,
@@ -84,9 +79,11 @@ class AduanController extends Controller
         if (User::isMasyarakat()) {
             $this->layout = 'backend/main-masyarakat';
         }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+
     }
 
     /**

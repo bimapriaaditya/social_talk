@@ -8,7 +8,7 @@ use yii\helpers\Html;
 <header class="main-header">
   <nav class="navbar navbar-static-top">
     <div class="container">
-      <?= Html::a('' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+      <?= Html::a('' . Yii::$app->name . '</span>', ['aduan/user-index'], ['class' => 'logo']) ?>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -37,12 +37,11 @@ use yii\helpers\Html;
                   <?= Html::a('Profile', ['/masyarakat/view/', 'id' => Yii::$app->user->identity->id_masyarakat], ['class' => 'btn btn-default btn-flat']); ?>
                 </div>
                 <div class="pull-right">
-                  <?php echo Html::beginForm(['/site/logout'], 'post');
-                  echo Html::submitButton(
-                    'Sign out',
-                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                  );
-                  Html::endForm()?>
+                  <?= Html::a(
+                      'Sign out',
+                      ['/site/logout'],
+                      ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                  ) ?>
                 </div>
               </li>
             </ul>
