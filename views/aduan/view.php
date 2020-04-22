@@ -7,6 +7,7 @@ use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -183,41 +184,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
-                </div>
-                <div class="box-body">
-                    <div class="box-footer box-comments">
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
-
-                            <div class="comment-text">
-                                <span class="username">
-                                    Maria Gonzales
-                                    <a href="">Edit</a>
-                                    <a href="">Hapus</a>
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span> <!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
-                            </div>
-                        <!-- /.comment-text -->
-                        </div>
-                        <!-- /.box-comment -->
-                        <div class="box-comment">
-                        <!-- User image -->
-                            <img class="img-circle img-sm" src="../dist/img/user4-128x128.jpg" alt="User Image">
-                            <div class="comment-text">
-                                <span class="username">
-                                    Luna Stark
-                                    <span class="text-muted pull-right">8:03 PM Today</span>
-                                </span><!-- /.username -->
-                                It is a long established fact that a reader will be distracted
-                                by the readable content of a page when looking at its layout.
-                            </div>
-                        <!-- /.comment-text -->
-                        </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
+                    </div>
+                    <div class="box-body">
+                        <?php
+                        echo ListView::widget([
+                            'dataProvider' => $dataProvider,
+                            'itemView' => '_tanggapan-petugas',
+                        ]);?>
                     </div>
                     <div class="box-footer">
                         <label>Beri Tanggapan :</label>
@@ -249,18 +224,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ->hiddenInput(['value' => date('Ymd')])
                                 ->label(false) ?>
 
-                        <?php Pjax::begin(); ?>
                             <div class="form-group">
                                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
                             </div>
-                        <?php Pjax::end(); ?>
-                            <?php ActiveForm::end(); 
-
-
-                        ?>
+                        <?php ActiveForm::end(); ?>
                     </div>
                 </div>
-            </div>
             </div>
             <div class="col-md-2"></div>
         </div>
