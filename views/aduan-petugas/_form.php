@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_petugas')->textInput() ?>
 
+    <?= $form->field($model, 'id_masyarakat')->textInput() ?>
+
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'tanggal')->textInput() ?>

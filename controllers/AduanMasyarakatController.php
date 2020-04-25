@@ -64,8 +64,10 @@ class AduanMasyarakatController extends Controller
     {
         $model = new AduanMasyarakat();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save();
+            return $this->redirect(['/aduan/view', 'id' => $model->id_aduan]);
         }
 
         return $this->render('create', [

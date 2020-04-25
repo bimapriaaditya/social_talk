@@ -9,12 +9,14 @@ use Yii;
  *
  * @property int $id
  * @property int $id_aduan
- * @property int $id_masyarakat
+ * @property int|null $id_masyarakat
+ * @property int|null $id_petugas
  * @property string $text
  * @property string $tanggal
  *
  * @property Aduan $aduan
  * @property Masyarakat $masyarakat
+ * @property Petugas $petugas
  */
 class AduanMasyarakat extends \yii\db\ActiveRecord
 {
@@ -32,12 +34,13 @@ class AduanMasyarakat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_aduan', 'id_masyarakat', 'text', 'tanggal'], 'required'],
-            [['id_aduan', 'id_masyarakat'], 'integer'],
+            [['id_aduan', 'text', 'tanggal'], 'required'],
+            [['id_aduan', 'id_masyarakat', 'id_petugas'], 'integer'],
             [['text'], 'string'],
             [['tanggal'], 'safe'],
             [['id_aduan'], 'exist', 'skipOnError' => true, 'targetClass' => Aduan::className(), 'targetAttribute' => ['id_aduan' => 'id']],
             [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
+            [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
         ];
     }
 
@@ -50,6 +53,7 @@ class AduanMasyarakat extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_aduan' => 'Id Aduan',
             'id_masyarakat' => 'Id Masyarakat',
+            'id_petugas' => 'Id Petugas',
             'text' => 'Text',
             'tanggal' => 'Tanggal',
         ];
@@ -73,5 +77,15 @@ class AduanMasyarakat extends \yii\db\ActiveRecord
     public function getMasyarakat()
     {
         return $this->hasOne(Masyarakat::className(), ['id' => 'id_masyarakat']);
+    }
+
+    /**
+     * Gets query for [[Petugas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPetugas()
+    {
+        return $this->hasOne(Petugas::className(), ['id' => 'id_petugas']);
     }
 }

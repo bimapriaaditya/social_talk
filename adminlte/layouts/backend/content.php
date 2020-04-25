@@ -1,6 +1,7 @@
 <?php
-use yii\widgets\Breadcrumbs;
+use app\models\User;
 use dmstr\widgets\Alert;
+use yii\widgets\Breadcrumbs;
 
 ?>
 <div class="content-wrapper">
@@ -21,7 +22,7 @@ use dmstr\widgets\Alert;
 
     <section class="content">
         <?= Alert::widget();
-        if (Yii::$app->user->identity->id_masyarakat !== null):?>
+        if (User::isMasyarakat()):?>
             <div class="container">
                 <?= $content ?>
             </div>

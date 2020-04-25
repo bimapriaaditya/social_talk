@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_petugas') ?>
 
+    <?= $form->field($model, 'id_masyarakat') ?>
+
     <?= $form->field($model, 'text') ?>
 
     <?= $form->field($model, 'tanggal') ?>

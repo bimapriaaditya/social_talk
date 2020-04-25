@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $id_aduan
+ * @property int $id_petugas
  * @property string $tanggapan
  * @property string $tanggal
  *
@@ -30,8 +31,8 @@ class AduanTanggapan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_aduan', 'tanggapan', 'tanggal'], 'required'],
-            [['id_aduan'], 'integer'],
+            [['id_aduan', 'id_petugas', 'tanggapan', 'tanggal'], 'required'],
+            [['id_aduan', 'id_petugas'], 'integer'],
             [['tanggapan'], 'string'],
             [['tanggal'], 'safe'],
             [['id_aduan'], 'exist', 'skipOnError' => true, 'targetClass' => Aduan::className(), 'targetAttribute' => ['id_aduan' => 'id']],
@@ -46,6 +47,7 @@ class AduanTanggapan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_aduan' => 'Id Aduan',
+            'id_petugas' => 'Id Petugas',
             'tanggapan' => 'Tanggapan',
             'tanggal' => 'Tanggal',
         ];

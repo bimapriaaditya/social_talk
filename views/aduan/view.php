@@ -4,6 +4,7 @@ use app\models\Aduan;
 use app\models\AduanMasyarakat;
 use app\models\AduanPetugas;
 use app\models\User;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
@@ -180,6 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
+    <?php if ($model->sifat == 2): ?>
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -189,16 +191,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="box-body">
                         <?php
+                        $dataProvider = new ActiveDataProvider([
+                            'query' => AduanPetugas::find()
+                                ->andWhere(['id_aduan' => $model->id])
+                                ->orderBy(['tanggal' => SORT_DESC])
+                        ]);
                         echo ListView::widget([
                             'dataProvider' => $dataProvider,
                             'itemView' => '_tanggapan-petugas',
                         ]);?>
                     </div>
                     <div class="box-footer">
-                        <label>Beri Tanggapan :</label>
-                        <?php 
-                        $lorem = new AduanPetugas();
-
+                        <?php if (User::isPetugas() || $model->id_masyarakat = Yii::$app->user->identity->id_masyarakat): ?>
+                            <label>Beri Tanggapan :</label>
+                            <?php 
+                            $lorem = new AduanPetugas();
 
                             $form = ActiveForm::begin([
                                 'action' => ['/aduan-petugas/create']
@@ -216,6 +223,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ->hiddenInput(['value' => Yii::$app->user->identity->id_petugas])
                                 ->label(false) ?>
 
+                            <?= $form->field($lorem, 'id_masyarakat')
+                                ->hiddenInput(['value' => Yii::$app->user->identity->id_masyarakat])
+                                ->label(false) ?>
+
                             <?= $form->field($lorem, 'text')
                                 ->textarea(['rows' => 6])
                                 ->label(false) ?>
@@ -227,10 +238,135 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="form-group">
                                 <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
                             </div>
-                        <?php ActiveForm::end(); ?>
+                            <?php ActiveForm::end(); ?>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
             <div class="col-md-2"></div>
         </div>
+    <?php endif ?>
+    <?php if ($model->sifat == 1): ?>
+        <div class="row">
+            <!-- Comment Masyarakat -->
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">KOLOM TANGGAPAN MASYARAKAT</h3>
+                    </div>
+                    <div class="box-body">
+                        <?php
+                        $dataProvider2 = new ActiveDataProvider([
+                            'query' => AduanMasyarakat::find()
+                                ->andWhere(['id_aduan' => $model->id])
+                                ->orderBy(['tanggal' => SORT_DESC])
+                        ]);
+
+                        echo ListView::widget([
+                            'dataProvider' => $dataProvider2,
+                            'itemView' => '_tanggapan-masyarakat',
+                        ]);?>
+                    </div>
+                    <div class="box-footer">
+                        <label>Beri Tanggapan :</label>
+                        <?php 
+                        $lorem = new AduanMasyarakat();
+
+                        $form = ActiveForm::begin([
+                            'action' => ['/aduan-masyarakat/create']
+                        ]);?>
+
+                        <?= $form->field($lorem, 'id')
+                            ->hiddenInput()
+                            ->label(false) ?>
+
+                        <?= $form->field($lorem, 'id_aduan')
+                            ->hiddenInput(['value' => $model->id])
+                            ->label(false) ?>
+
+                        <?= $form->field($lorem, 'id_masyarakat')
+                            ->hiddenInput(['value' => Yii::$app->user->identity->id_masyarakat])
+                            ->label(false) ?>
+
+                        <?= $form->field($lorem, 'id_petugas')
+                            ->hiddenInput(['value' => Yii::$app->user->identity->id_petugas])
+                            ->label(false) ?>
+
+                        <?= $form->field($lorem, 'text')
+                            ->textarea(['rows' => 6])
+                            ->label(false) ?>
+
+                        <?= $form->field($lorem, 'tanggal')
+                            ->hiddenInput(['value' => date('Ymd')])
+                            ->label(false) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
+                        </div>
+                        <?php ActiveForm::end(); ?>
+                    </div>
+                </div>
+            </div>
+            <!-- Comment Petugas dan Pelapor -->
+            <div class="col-md-6">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">KOLOM TANGGAPAN PETUGAS</h3>
+                    </div>
+                    <div class="box-body">
+                        <?php
+                        $dataProvider = new ActiveDataProvider([
+                            'query' => AduanPetugas::find()
+                                ->andWhere(['id_aduan' => $model->id])
+                                ->orderBy(['tanggal' => SORT_DESC])
+                        ]);
+                        echo ListView::widget([
+                            'dataProvider' => $dataProvider,
+                            'itemView' => '_tanggapan-petugas',
+                        ]);?>
+                    </div>
+                    <div class="box-footer">
+                        <?php if (User::isPetugas() || $model->id_masyarakat == Yii::$app->user->identity->id_masyarakat): ?>
+                            <label>Beri Tanggapan :</label>
+                            <?php 
+                            $lorem = new AduanPetugas();
+
+                            $form = ActiveForm::begin([
+                                'action' => ['/aduan-petugas/create']
+                            ]);?>
+
+                            <?= $form->field($lorem, 'id')
+                                ->hiddenInput()
+                                ->label(false) ?>
+
+                            <?= $form->field($lorem, 'id_aduan')
+                                ->hiddenInput(['value' => $model->id])
+                                ->label(false) ?>
+
+                            <?= $form->field($lorem, 'id_petugas')
+                                ->hiddenInput(['value' => Yii::$app->user->identity->id_petugas])
+                                ->label(false) ?>
+
+                            <?= $form->field($lorem, 'id_masyarakat')
+                                ->hiddenInput(['value' => Yii::$app->user->identity->id_masyarakat])
+                                ->label(false) ?>
+
+                            <?= $form->field($lorem, 'text')
+                                ->textarea(['rows' => 6])
+                                ->label(false) ?>
+
+                            <?= $form->field($lorem, 'tanggal')
+                                ->hiddenInput(['value' => date('Ymd')])
+                                ->label(false) ?>
+
+                            <div class="form-group">
+                                <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
+                            </div>
+                            <?php ActiveForm::end(); ?>
+                        <?php endif ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif ?>
 </div>

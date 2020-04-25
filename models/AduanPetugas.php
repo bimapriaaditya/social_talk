@@ -9,12 +9,14 @@ use Yii;
  *
  * @property int $id
  * @property int $id_aduan
- * @property int $id_petugas
+ * @property int|null $id_petugas
+ * @property int|null $id_masyarakat
  * @property string $text
  * @property string $tanggal
  *
  * @property Aduan $aduan
  * @property Petugas $petugas
+ * @property Masyarakat $masyarakat
  */
 class AduanPetugas extends \yii\db\ActiveRecord
 {
@@ -32,12 +34,13 @@ class AduanPetugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_aduan', 'id_petugas', 'text', 'tanggal'], 'required'],
-            [['id_aduan', 'id_petugas'], 'integer'],
+            [['id_aduan', 'text', 'tanggal'], 'required'],
+            [['id_aduan', 'id_petugas', 'id_masyarakat'], 'integer'],
             [['text'], 'string'],
             [['tanggal'], 'safe'],
             [['id_aduan'], 'exist', 'skipOnError' => true, 'targetClass' => Aduan::className(), 'targetAttribute' => ['id_aduan' => 'id']],
             [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
+            [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
         ];
     }
 
@@ -50,6 +53,7 @@ class AduanPetugas extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_aduan' => 'Id Aduan',
             'id_petugas' => 'Id Petugas',
+            'id_masyarakat' => 'Id Masyarakat',
             'text' => 'Text',
             'tanggal' => 'Tanggal',
         ];
@@ -73,5 +77,15 @@ class AduanPetugas extends \yii\db\ActiveRecord
     public function getPetugas()
     {
         return $this->hasOne(Petugas::className(), ['id' => 'id_petugas']);
+    }
+
+    /**
+     * Gets query for [[Masyarakat]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMasyarakat()
+    {
+        return $this->hasOne(Masyarakat::className(), ['id' => 'id_masyarakat']);
     }
 }

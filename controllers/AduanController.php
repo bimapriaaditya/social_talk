@@ -80,14 +80,9 @@ class AduanController extends Controller
         if (User::isMasyarakat()) {
             $this->layout = 'backend/main-masyarakat';
         }
-        $aduanPetugas = new AduanPetugas();
-        $dataProvider = new ActiveDataProvider([
-            'query' => AduanPetugas::find()
-                ->orderBy(['id' => SORT_DESC]),
-        ]);
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'dataProvider' => $dataProvider,
         ]);
 
     }

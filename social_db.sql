@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Apr 2020 pada 15.51
+-- Waktu pembuatan: 25 Apr 2020 pada 06.04
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.2.26
 
@@ -51,31 +51,8 @@ CREATE TABLE `aduan` (
 INSERT INTO `aduan` (`id`, `id_masyarakat`, `nama`, `tanggal`, `id_kategori`, `id_provinsi`, `id_kota`, `keterangan_tempat`, `deskripsi`, `img_bukti_1`, `img_bukti_2`, `img_bukti_3`, `sifat`) VALUES
 (1, 1, 'Bau sampah yang sangat menyengat', '2020-02-20', 1, 5, 6, 'Jl.Lorem Ipsum Dolor dekat sit amat pertigaan dekat consectetur adipisicing elit', 'Bau sampah yang menyengat dari perusahaan sed do eiusmod yang selalu membuang samapah sembarangan 1 bulan terakhir', '20200327105742_UPLOADED-BUKTI_1_Bau sampah yang sangat menyengat_2020-02-20.png', '20200327105742_UPLOADED-BUKTI_2_Bau sampah yang sangat menyengat_2020-02-20.png', '20200327105742_UPLOADED-BUKTI_3_Bau sampah yang sangat menyengat_2020-02-20.png', 1),
 (7, 1, 'Ipsum Dolor Sit Amet', '2020-02-20', 2, 12, 31, 'Gg. Excepteur sint occaecat', 'llamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '20200328023944_UPLOADED-BUKTI_1_Ipsum Dolor Sit Amet_2020-02-20.png', '20200328023944_UPLOADED-BUKTI_2_Ipsum Dolor Sit Amet_2020-02-20.png', '20200328023944_UPLOADED-BUKTI_3_Ipsum Dolor Sit Amet_2020-02-20.png', 2),
-(11, 3, 'Segibrig', '2020-02-20', 2, 1, 1, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '20200407022920_UPLOADED-BUKTI_1_Segibrig_2020-02-20.webp', '20200407045830_UPLOADED-BUKTI_2_Segibrig_2020-02-20.jpg', '', 2);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `aduan_dislike`
---
-
-CREATE TABLE `aduan_dislike` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_aduan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `aduan_like`
---
-
-CREATE TABLE `aduan_like` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_aduan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(11, 3, 'Segibrig', '2020-02-20', 2, 1, 1, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '20200407022920_UPLOADED-BUKTI_1_Segibrig_2020-02-20.webp', '20200407045830_UPLOADED-BUKTI_2_Segibrig_2020-02-20.jpg', '', 2),
+(13, 1, 'Konser Jejepangan disaat pandemi COVID-19', '2020-04-22', 3, 22, 22, 'BEC Kota Bandung Jl.Lorem Ips.', 'Kegiatan konser Jejepangan atau Wiwibuan di halaman perbelanjaan BIP Kota Bandung membuat warga sekitar resah dan panik pasalnya kegiatan tersebut dilaksanakan di tempat umum dan saat melunjaknya wabah Corona. Hal itu membuat para tukang becak, Supir angkot, Mang Edoy, Mas Supri, dan tukang gulali resah', '20200422123615_UPLOADED-BUKTI_1_Konser Jejepangan disaat pandemi COVID-19_2020-4-22.jpg', '20200422123615_UPLOADED-BUKTI_2_Konser Jejepangan disaat pandemi COVID-19_2020-4-22.png', '', 1);
 
 -- --------------------------------------------------------
 
@@ -86,10 +63,24 @@ CREATE TABLE `aduan_like` (
 CREATE TABLE `aduan_masyarakat` (
   `id` int(11) NOT NULL,
   `id_aduan` int(11) NOT NULL,
-  `id_masyarakat` int(11) NOT NULL,
+  `id_masyarakat` int(11) DEFAULT NULL,
+  `id_petugas` int(11) DEFAULT NULL,
   `text` text NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `aduan_masyarakat`
+--
+
+INSERT INTO `aduan_masyarakat` (`id`, `id_aduan`, `id_masyarakat`, `id_petugas`, `text`, `tanggal`) VALUES
+(1, 1, 1, NULL, 'Lorem', '2020-04-23'),
+(2, 1, 1, NULL, 'Hey', '2020-04-25'),
+(3, 13, 1, NULL, 'Hei Saya Usep >> Konser', '2020-04-25'),
+(4, 13, NULL, 4, 'Hai saya petugasnya, salam kenal', '2020-04-25'),
+(5, 13, 3, NULL, 'Saya yang lapor', '2020-04-25'),
+(6, 13, 3, NULL, 'Gak deng boong haha', '2020-04-25'),
+(7, 13, 1, NULL, 'Unsend Oyy', '2020-04-25');
 
 -- --------------------------------------------------------
 
@@ -100,10 +91,26 @@ CREATE TABLE `aduan_masyarakat` (
 CREATE TABLE `aduan_petugas` (
   `id` int(11) NOT NULL,
   `id_aduan` int(11) NOT NULL,
-  `id_petugas` int(11) NOT NULL,
+  `id_petugas` int(11) DEFAULT NULL,
+  `id_masyarakat` int(11) DEFAULT NULL,
   `text` text NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `aduan_petugas`
+--
+
+INSERT INTO `aduan_petugas` (`id`, `id_aduan`, `id_petugas`, `id_masyarakat`, `text`, `tanggal`) VALUES
+(12, 1, 2, NULL, 'Ini Petugas', '2020-04-25'),
+(13, 1, 2, NULL, 'Petugas di Bau Sampah datang', '2020-04-25'),
+(14, 11, 2, NULL, 'Segibrig >>> Petugas Datang!!!', '2020-04-25'),
+(15, 11, 2, NULL, 'LOL', '2020-04-25'),
+(16, 11, NULL, 3, 'Ada apa ya pak ? Kok malah nge DS?', '2020-04-25'),
+(18, 13, 4, NULL, 'Heii Saya Petugas Baru namanya Kanibal >>> Konser ', '2020-04-25'),
+(19, 13, NULL, 1, 'Haii Kak Nibal', '2020-04-25'),
+(20, 1, NULL, 1, 'Saya yang lapor', '2020-04-25'),
+(21, 1, 4, NULL, 'Saya mau ikut nimbrung', '2020-04-25');
 
 -- --------------------------------------------------------
 
@@ -114,6 +121,7 @@ CREATE TABLE `aduan_petugas` (
 CREATE TABLE `aduan_tanggapan` (
   `id` int(11) NOT NULL,
   `id_aduan` int(11) NOT NULL,
+  `id_petugas` int(11) NOT NULL,
   `tanggapan` enum('1','2','3') NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -666,7 +674,9 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`id`, `nama`) VALUES
 (1, 'Kekerasan Dalam Rumah Tangga (KDRT)'),
-(2, 'Bencana Alam (Banjir)');
+(2, 'Bencana Alam (Banjir)'),
+(3, 'Perkelahian'),
+(4, 'Tauran ');
 
 -- --------------------------------------------------------
 
@@ -1224,7 +1234,7 @@ CREATE TABLE `masyarakat` (
 
 INSERT INTO `masyarakat` (`id`, `nik`, `nama`, `no_telepon`, `id_provinsi`, `id_kota`, `alamat`, `tanggal_lahir`, `usia`, `img`) VALUES
 (1, '11762543331418', 'Usep Sunandar', '08777655431', 15, 97, 'Jl Sumur Lega', '2001-02-02', 20, '20200329095328_Photo-Picture_Usep Sunandar.jpg'),
-(3, '19992222888837465', 'Ahmad Lorem Sudjana', '087765514213', 13, 202, 'Jl Pegangsaan Timur no 34 Rt 33 Rw 12 Kec.Londok Kell.Lahirman Kabupaten Kudus ', '1991-09-22', 30, '20200401102704_Photo-Picture_Ahmad Lorem Sudjanajpg');
+(3, '19992222888837465', 'Ahmad Lorem Sudjana', '087765514213', 13, 202, 'Jl Pegangsaan Timur no 34 Rt 33 Rw 12 Kec.Londok Kell.Lahirman Kabupaten Kudus ', '1991-09-22', 30, '20200401102704_Photo-Picture_Ahmad Lorem Sudjana.jpg');
 
 -- --------------------------------------------------------
 
@@ -1242,7 +1252,7 @@ CREATE TABLE `petugas` (
   `alamat` varchar(255) NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `usia` int(11) NOT NULL,
-  `img` varchar(255) NOT NULL
+  `img` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1250,8 +1260,8 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id`, `nama`, `id_bagian`, `no_telepon`, `id_provinsi`, `id_kota`, `alamat`, `tanggal_lahir`, `usia`, `img`) VALUES
-(2, 'Bima Pria Aditya', 179, '087878182791', 12, 179, 'Jl Gagak No.34', '2001-11-02', 18, 'bima.png'),
-(3, 'Caldin Masyuri Tanchi', 2, '09877615341', 5, 9, 'Jl Kepanjangan', '2002-10-04', 18, '20200412065253Photo_Picture_Caldin Masyuri Tanchi.png');
+(2, 'Bima Priya Aditya', 179, '087878182791', 12, 179, 'Jl Gagak No.34', '2001-11-02', 18, '20200415103312Photo_Picture_Bima Priya Aditya.jpg'),
+(4, 'Ka Ni Bal', 215, '08511591827', 27, 29, 'Londo Kampoeng', '2020-04-01', 14, '20200413030831Photo_Picture_Ka Ni Bal.jpg');
 
 -- --------------------------------------------------------
 
@@ -1327,7 +1337,7 @@ INSERT INTO `user` (`id`, `email`, `password`, `role`, `id_masyarakat`, `id_petu
 (1, 'bpabima@gmail.com', 'lorem123', 2, NULL, 2),
 (2, 'user@user.com', 'user123', 1, 1, NULL),
 (3, 'lorem@lorem.com', 'lorem123', 1, 3, NULL),
-(4, 'admin@admin.com', 'admin123', 3, NULL, 3);
+(5, 'kanibal@kanibal.com', 'kanibal123', 2, NULL, 4);
 
 --
 -- Indexes for dumped tables
@@ -1344,28 +1354,13 @@ ALTER TABLE `aduan`
   ADD KEY `id_masyarakat` (`id_masyarakat`);
 
 --
--- Indeks untuk tabel `aduan_dislike`
---
-ALTER TABLE `aduan_dislike`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_aduan` (`id_aduan`);
-
---
--- Indeks untuk tabel `aduan_like`
---
-ALTER TABLE `aduan_like`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_aduan` (`id_aduan`);
-
---
 -- Indeks untuk tabel `aduan_masyarakat`
 --
 ALTER TABLE `aduan_masyarakat`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_aduan` (`id_aduan`),
-  ADD KEY `id_masyarakat` (`id_masyarakat`);
+  ADD KEY `id_masyarakat` (`id_masyarakat`),
+  ADD KEY `id_petugas` (`id_petugas`);
 
 --
 -- Indeks untuk tabel `aduan_petugas`
@@ -1373,7 +1368,8 @@ ALTER TABLE `aduan_masyarakat`
 ALTER TABLE `aduan_petugas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_aduan` (`id_aduan`),
-  ADD KEY `id_petugas` (`id_petugas`);
+  ADD KEY `id_petugas` (`id_petugas`),
+  ADD KEY `id_masyarakat` (`id_masyarakat`);
 
 --
 -- Indeks untuk tabel `aduan_tanggapan`
@@ -1439,31 +1435,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `aduan`
 --
 ALTER TABLE `aduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT untuk tabel `aduan_dislike`
---
-ALTER TABLE `aduan_dislike`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `aduan_like`
---
-ALTER TABLE `aduan_like`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `aduan_masyarakat`
 --
 ALTER TABLE `aduan_masyarakat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `aduan_petugas`
 --
 ALTER TABLE `aduan_petugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `aduan_tanggapan`
@@ -1481,7 +1465,7 @@ ALTER TABLE `bagian`
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `kota`
@@ -1499,7 +1483,7 @@ ALTER TABLE `masyarakat`
 -- AUTO_INCREMENT untuk tabel `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `provinsi`
@@ -1511,7 +1495,7 @@ ALTER TABLE `provinsi`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -1531,14 +1515,16 @@ ALTER TABLE `aduan`
 --
 ALTER TABLE `aduan_masyarakat`
   ADD CONSTRAINT `aduan_masyarakat_ibfk_1` FOREIGN KEY (`id_aduan`) REFERENCES `aduan` (`id`),
-  ADD CONSTRAINT `aduan_masyarakat_ibfk_2` FOREIGN KEY (`id_masyarakat`) REFERENCES `masyarakat` (`id`);
+  ADD CONSTRAINT `aduan_masyarakat_ibfk_2` FOREIGN KEY (`id_masyarakat`) REFERENCES `masyarakat` (`id`),
+  ADD CONSTRAINT `aduan_masyarakat_ibfk_3` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `aduan_petugas`
 --
 ALTER TABLE `aduan_petugas`
   ADD CONSTRAINT `aduan_petugas_ibfk_1` FOREIGN KEY (`id_aduan`) REFERENCES `aduan` (`id`),
-  ADD CONSTRAINT `aduan_petugas_ibfk_2` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id`);
+  ADD CONSTRAINT `aduan_petugas_ibfk_2` FOREIGN KEY (`id_petugas`) REFERENCES `petugas` (`id`),
+  ADD CONSTRAINT `aduan_petugas_ibfk_3` FOREIGN KEY (`id_masyarakat`) REFERENCES `masyarakat` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `aduan_tanggapan`
