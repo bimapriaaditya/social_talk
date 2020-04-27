@@ -10,6 +10,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use sjaakp\loadmore\LoadMorePager;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Aduan */
@@ -194,7 +195,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider = new ActiveDataProvider([
                             'query' => AduanPetugas::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['tanggal' => SORT_DESC])
+                                ->orderBy(['tanggal' => SORT_DESC]),
+                            'pager' => [
+                                'class' => LoadMorePager::class,
+                                'label' => 'Lihat Lebih Banyak'
+                            ],
                         ]);
                         echo ListView::widget([
                             'dataProvider' => $dataProvider,
@@ -259,11 +264,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider2 = new ActiveDataProvider([
                             'query' => AduanMasyarakat::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['tanggal' => SORT_DESC])
+                                ->orderBy(['id' => SORT_DESC]),
+                            'pagination' => [
+                                'pageSize' => 8
+                            ]
                         ]);
 
                         echo ListView::widget([
                             'dataProvider' => $dataProvider2,
+                            'pager' => [
+                                'class' => LoadMorePager::class,
+                                'label' => 'Lihat Lebih Banyak',
+                                'options' => [
+                                    'class' => 'btn btn-warning btn-xs',
+                                ]
+                            ],
+                            'summary' => 'Showing {begin}-<span class="summary-end">{end}</span> of {totalCount} items',
                             'itemView' => '_tanggapan-masyarakat',
                         ]);?>
                     </div>
@@ -318,10 +334,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider = new ActiveDataProvider([
                             'query' => AduanPetugas::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['tanggal' => SORT_DESC])
+                                ->orderBy(['tanggal' => SORT_DESC]),
+                            'pagination' => [
+                                'pageSize' => 8
+                            ]
                         ]);
                         echo ListView::widget([
                             'dataProvider' => $dataProvider,
+                            'pager' => [
+                                'class' => LoadMorePager::class,
+                                'label' => 'Lihat Lebih Banyak',
+                                'options' => [
+                                    'class' => 'btn btn-warning btn-xs'
+                                ]
+                            ],
                             'itemView' => '_tanggapan-petugas',
                         ]);?>
                     </div>

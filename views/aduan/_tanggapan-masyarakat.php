@@ -12,7 +12,7 @@ use yii\widgets\ListView;
             <?= Html::img('@MasyarakatImgUrl/'.$model->masyarakat->img,['class'=>'img-circle img-sm']);?>
             <div class="comment-text">
                 <span class="username">
-                    <?= Html::a($model->masyarakat->nama, ['aduan/view', 'id' => $model->id]); ?>
+                    <?= Html::a($model->masyarakat->nama, ['masyarakat/view', 'id' => $model->id_masyarakat]); ?>
                     <a href="" style="font-size: 75%; margin-left: 10px;">Edit</a>
                     <a href="" style="font-size: 75%;">Hapus</a>
                     <span class="text-muted pull-right">8:03 PM Today</span>
@@ -30,7 +30,7 @@ use yii\widgets\ListView;
             <?= Html::img('@PetugasImgUrl/'.$model->petugas->img,['class'=>'img-circle img-sm']);?>
             <div class="comment-text">
                 <span class="username">
-                    <?= Html::a($model->petugas->nama, ['aduan/view', 'id' => $model->id]); ?>
+                    <?= Html::a($model->petugas->nama, ['petugas/view', 'id' => $model->id_petugas]); ?>
                     <a href="" style="font-size: 75%; margin-left: 10px;">Edit</a>
                     <a href="" style="font-size: 75%;">Hapus</a>
                     <span class="text-muted pull-right">8:03 PM Today</span>
