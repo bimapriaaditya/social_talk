@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_aduan',
             'id_masyarakat',
             'text:ntext',
-            'tanggal',
+            'create_at',
         ],
     ]) ?>
 

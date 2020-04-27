@@ -5,9 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\AduanMasyarakat;
 use app\models\AduanMasyarakatSearch;
+use app\models\User;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * AduanMasyarakatController implements the CRUD actions for AduanMasyarakat model.
@@ -62,6 +63,10 @@ class AduanMasyarakatController extends Controller
      */
     public function actionCreate()
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
+
         $model = new AduanMasyarakat();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -84,10 +89,14 @@ class AduanMasyarakatController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['aduan/view/', 'id' => $model->id_aduan]);
         }
 
         return $this->render('update', [
@@ -104,9 +113,11 @@ class AduanMasyarakatController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['aduan/view/', 'id' => $model->id_aduan]);
     }
 
     /**

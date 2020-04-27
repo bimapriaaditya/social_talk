@@ -13,9 +13,17 @@ use yii\widgets\ListView;
             <div class="comment-text">
                 <span class="username">
                     <?= Html::a($model->masyarakat->nama, ['masyarakat/view', 'id' => $model->id_masyarakat]); ?>
-                    <a href="" style="font-size: 75%; margin-left: 10px;">Edit</a>
-                    <a href="" style="font-size: 75%;">Hapus</a>
-                    <span class="text-muted pull-right">8:03 PM Today</span>
+                    <?php if ($model->id_masyarakat == Yii::$app->user->identity->id_masyarakat): ?>
+                        <?= Html::a('Edit',['aduan-masyarakat/update/', 'id' => $model->id], ['style' => 'font-size: 75%; margin-left: 10px;']); ?>
+                        <?= Html::a('Hapus', ['aduan-masyarakat/delete/', 'id' => $model->id], [
+                            'style' => 'font-size:75%;',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    <?php endif ?>
+                    <span class="text-muted pull-right"><?= $model->create_at ?></span>
                 </span> <!-- /.username -->
                 <?= $model->text ?>
             </div>
@@ -31,9 +39,19 @@ use yii\widgets\ListView;
             <div class="comment-text">
                 <span class="username">
                     <?= Html::a($model->petugas->nama, ['petugas/view', 'id' => $model->id_petugas]); ?>
-                    <a href="" style="font-size: 75%; margin-left: 10px;">Edit</a>
-                    <a href="" style="font-size: 75%;">Hapus</a>
-                    <span class="text-muted pull-right">8:03 PM Today</span>
+                    <?php if ($model->id_petugas == Yii::$app->user->identity->id_petugas): ?>
+                        <?= Html::a('Edit',['aduan-masyarakat/update/', 'id' => $model->id], ['style' => 'font-size: 75%; margin-left: 10px;']); ?>
+                        <?= Html::a('Hapus', ['aduan-masyarakat/delete/', 'id' => $model->id], [
+                            'style' => 'font-size:75%;',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    <?php endif ?>
+                    <span class="text-muted pull-right">
+                        <?= $model->create_at ?>
+                    </span>
                 </span> <!-- /.username -->
                 <?= $model->text ?>
             </div>

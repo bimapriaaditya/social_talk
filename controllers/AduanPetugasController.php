@@ -5,9 +5,10 @@ namespace app\controllers;
 use Yii;
 use app\models\AduanPetugas;
 use app\models\AduanPetugasSearch;
+use app\models\User;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * AduanPetugasController implements the CRUD actions for AduanPetugas model.
@@ -83,10 +84,14 @@ class AduanPetugasController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isMasyarakat()) {
+            $this->layout = 'backend/main-masyarakat';
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/aduan/view', 'id' => $model->id_aduan]);
         }
 
         return $this->render('update', [
@@ -103,9 +108,11 @@ class AduanPetugasController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/aduan/view', 'id' => $model->id_aduan]);
     }
 
     /**

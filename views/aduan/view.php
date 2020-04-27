@@ -195,15 +195,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider = new ActiveDataProvider([
                             'query' => AduanPetugas::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['tanggal' => SORT_DESC]),
-                            'pager' => [
-                                'class' => LoadMorePager::class,
-                                'label' => 'Lihat Lebih Banyak'
+                                ->orderBy(['create_at' => SORT_DESC]),
+                            'pagination' => [
+                                'pageSize' => 8
                             ],
                         ]);
                         echo ListView::widget([
                             'dataProvider' => $dataProvider,
                             'itemView' => '_tanggapan-petugas',
+                            'pager' => [
+                                'class' => LoadMorePager::class,
+                                'label' => 'Lihat Lebih Banyak'
+                            ],
                         ]);?>
                     </div>
                     <div class="box-footer">
@@ -236,8 +239,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ->textarea(['rows' => 6])
                                 ->label(false) ?>
 
-                            <?= $form->field($lorem, 'tanggal')
-                                ->hiddenInput(['value' => date('Ymd')])
+                            <?= $form->field($lorem, 'create_at')
+                                ->hiddenInput(['value' => date('Y-m-d H:i:s.u')])
                                 ->label(false) ?>
 
                             <div class="form-group">
@@ -264,7 +267,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider2 = new ActiveDataProvider([
                             'query' => AduanMasyarakat::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['id' => SORT_DESC]),
+                                ->orderBy(['create_at' => SORT_DESC]),
                             'pagination' => [
                                 'pageSize' => 8
                             ]
@@ -279,7 +282,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'class' => 'btn btn-warning btn-xs',
                                 ]
                             ],
-                            'summary' => 'Showing {begin}-<span class="summary-end">{end}</span> of {totalCount} items',
                             'itemView' => '_tanggapan-masyarakat',
                         ]);?>
                     </div>
@@ -312,9 +314,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ->textarea(['rows' => 6])
                             ->label(false) ?>
 
-                        <?= $form->field($lorem, 'tanggal')
-                            ->hiddenInput(['value' => date('Ymd')])
-                            ->label(false) ?>
+                        <?= $form->field($lorem, 'create_at')
+                                ->hiddenInput(['value' => date('Y-m-d H:i:s.u')])
+                                ->label(false) ?>
 
                         <div class="form-group">
                             <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-block']) ?>
@@ -334,7 +336,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $dataProvider = new ActiveDataProvider([
                             'query' => AduanPetugas::find()
                                 ->andWhere(['id_aduan' => $model->id])
-                                ->orderBy(['tanggal' => SORT_DESC]),
+                                ->orderBy(['create_at' => SORT_DESC]),
                             'pagination' => [
                                 'pageSize' => 8
                             ]
@@ -381,8 +383,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ->textarea(['rows' => 6])
                                 ->label(false) ?>
 
-                            <?= $form->field($lorem, 'tanggal')
-                                ->hiddenInput(['value' => date('Ymd')])
+                            <?= $form->field($lorem, 'create_at')
+                                ->hiddenInput(['value' => date('Y-m-d H:i:s.u')])
                                 ->label(false) ?>
 
                             <div class="form-group">

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\AduanPetugas */
 
-$this->title = 'Update Aduan Petugas: ' . $model->id;
+$this->title = 'Edit Komentar: ' . $model->aduan->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Aduan Petugas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

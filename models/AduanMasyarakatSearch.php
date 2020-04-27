@@ -18,7 +18,7 @@ class AduanMasyarakatSearch extends AduanMasyarakat
     {
         return [
             [['id', 'id_aduan', 'id_masyarakat'], 'integer'],
-            [['text', 'tanggal'], 'safe'],
+            [['text', 'create_at'], 'safe'],
         ];
     }
 
@@ -61,7 +61,7 @@ class AduanMasyarakatSearch extends AduanMasyarakat
             'id' => $this->id,
             'id_aduan' => $this->id_aduan,
             'id_masyarakat' => $this->id_masyarakat,
-            'tanggal' => $this->tanggal,
+            'create_at' => $this->create_at,
         ]);
 
         $query->andFilterWhere(['like', 'text', $this->text]);

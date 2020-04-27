@@ -17,8 +17,8 @@ class AduanPetugasSearch extends AduanPetugas
     public function rules()
     {
         return [
-            [['id', 'id_aduan', 'id_petugas'], 'integer'],
-            [['text', 'tanggal'], 'safe'],
+            [['id', 'id_aduan', 'id_petugas', 'id_masyarakat'], 'integer'],
+            [['text', 'create_at'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class AduanPetugasSearch extends AduanPetugas
             'id' => $this->id,
             'id_aduan' => $this->id_aduan,
             'id_petugas' => $this->id_petugas,
-            'tanggal' => $this->tanggal,
+            'id_masyarakat' => $this->id_masyarakat,
+            'create_at' => $this->create_at,
         ]);
 
         $query->andFilterWhere(['like', 'text', $this->text]);

@@ -12,15 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_aduan')->textInput() ?>
+    <?= $form->field($model, 'id_aduan')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'id_petugas')->textInput() ?>
+    <?= $form->field($model, 'id_petugas')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'id_masyarakat')->textInput() ?>
+    <?= $form->field($model, 'id_masyarakat')->hiddenInput()->label(false) ?>
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'tanggal')->textInput() ?>
+    <?= $form->field($model, 'create_at')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

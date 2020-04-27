@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text') ?>
 
-    <?= $form->field($model, 'tanggal') ?>
+    <?= $form->field($model, 'create_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

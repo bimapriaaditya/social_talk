@@ -11,7 +11,7 @@ use Yii;
  * @property int $id_aduan
  * @property int $id_petugas
  * @property string $tanggapan
- * @property string $tanggal
+ * @property string $create_at
  *
  * @property Aduan $aduan
  */
@@ -31,10 +31,10 @@ class AduanTanggapan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_aduan', 'id_petugas', 'tanggapan', 'tanggal'], 'required'],
+            [['id_aduan', 'id_petugas', 'tanggapan', 'create_at'], 'required'],
             [['id_aduan', 'id_petugas'], 'integer'],
             [['tanggapan'], 'string'],
-            [['tanggal'], 'safe'],
+            [['create_at'], 'safe'],
             [['id_aduan'], 'exist', 'skipOnError' => true, 'targetClass' => Aduan::className(), 'targetAttribute' => ['id_aduan' => 'id']],
         ];
     }
@@ -49,7 +49,7 @@ class AduanTanggapan extends \yii\db\ActiveRecord
             'id_aduan' => 'Id Aduan',
             'id_petugas' => 'Id Petugas',
             'tanggapan' => 'Tanggapan',
-            'tanggal' => 'Tanggal',
+            'create_at' => 'Create At',
         ];
     }
 
