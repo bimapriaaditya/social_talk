@@ -47,19 +47,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-2" style="text-align: right;">
-                    <?php if (User::isPetugas()): ?>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning">Action</button>
-                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" style="color: blue;">DITERIMA</a></li>
-                                <li><a href="#" style="color: orange;">DIPROSES</a></li>
-                                <li><a href="#" style="color: red;">DITUTUP</a></li>
-                            </ul>
-                        </div>
-                    <?php endif ?>
+                    <?php if (User::isPetugas()){                        
+                        $form = ActiveForm::begin([
+                            'action' => ['update', 'id' => $model->id]
+                        ]);
+                       echo $form->field($model, 'penentuan')->dropDownList([
+                            'terkirim' => 'Terkirim',
+                            'diproses' => 'Diproses', 
+                            'diterima' => 'Diterima',
+                            'ditolak' => 'Ditolak'
+                        ])->label('Status Aduan');
+
+                       echo $form->field($model, 'penentuan_waktu')->hiddenInput([
+                            'value' => date('Y-m-d H:i:s.u')])
+                       ->label(false);
+
+                       echo $form->field($model, 'id_petugas')->hiddenInput([
+                            'value' => Yii::$app->user->identity->id_petugas])
+                        ->label(false);
+
+                       echo Html::submitButton('UBAH', ['class' => 'btn btn-danger']);
+
+                       ActiveForm::end();
+
+                       echo '<br>';
+                    }?>
+                    <?= 'STATUS ADUAN ' . '<strong>' . $model->penentuan . '</strong>' ?>
                 </div>
             </div>
         </div>

@@ -46,14 +46,15 @@ class Aduan extends \yii\db\ActiveRecord
     {
         return [
             [['id_masyarakat', 'nama', 'tanggal', 'id_kategori', 'id_provinsi', 'id_kota', 'keterangan_tempat', 'deskripsi', 'sifat'], 'required'],
-            [['id_masyarakat', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat'], 'integer'],
-            [['tanggal'], 'safe'],
+            [['id_masyarakat', 'id_kategori', 'id_provinsi', 'id_kota', 'sifat', 'id_petugas'], 'integer'],
+            [['tanggal', 'penentuan', 'penentuan_waktu', 'id_petugas'], 'safe'],
             [['keterangan_tempat', 'deskripsi'], 'string'],
             [['nama', 'img_bukti_1', 'img_bukti_2', 'img_bukti_3'], 'string', 'max' => 255],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],
             [['id_kategori'], 'exist', 'skipOnError' => true, 'targetClass' => Kategori::className(), 'targetAttribute' => ['id_kategori' => 'id']],
             [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
+            [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
         ];
     }
 
@@ -76,6 +77,9 @@ class Aduan extends \yii\db\ActiveRecord
             'img_bukti_2' => 'Img Bukti 2',
             'img_bukti_3' => 'Img Bukti 3',
             'sifat' => 'Sifat',
+            'penentuan' => 'Penentuan',
+            'penentuan_waktu' => 'Waktu Penentuan',
+            'id_petugas' => 'Pemeriksa Aduan',
         ];
     }
 
@@ -117,6 +121,11 @@ class Aduan extends \yii\db\ActiveRecord
     public function getMasyarakat()
     {
         return $this->hasOne(Masyarakat::className(), ['id' => 'id_masyarakat']);
+    }
+
+    public function getPetugas()
+    {
+        return $this->hasOne(Petugas::className(), ['id' => 'id_petugas']);
     }
 
     /**
