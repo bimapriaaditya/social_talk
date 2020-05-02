@@ -10,6 +10,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     const MASYARAKAT = 1;
     const PETUGAS = 2;
     const ADMIN = 3;
+    
     public static function tableName()
     {
         return 'user';
@@ -24,6 +25,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['email', 'password', 'role'], 'required'],
             [['role', 'id_masyarakat', 'id_petugas'], 'integer'],
             [['email', 'password'], 'string', 'max' => 255],
+            [['id_petugas', 'id_masyarakat'], 'safe'],
             [['id_masyarakat'], 'exist', 'skipOnError' => true, 'targetClass' => Masyarakat::className(), 'targetAttribute' => ['id_masyarakat' => 'id']],
             [['id_petugas'], 'exist', 'skipOnError' => true, 'targetClass' => Petugas::className(), 'targetAttribute' => ['id_petugas' => 'id']],
         ];

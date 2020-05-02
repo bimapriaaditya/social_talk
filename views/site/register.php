@@ -74,62 +74,60 @@ $fieldOptions12 = [
 	    <p class="login-box-msg">Register a new membership</p>
 
 	    <?php 
-	    $Masyarakat = new Masyarakat();
-	    $User = new User();
 	    $form = ActiveForm::begin(); ?>
-
 
     	<div class="row">
     		<div class="col col-md-4">
     			<h3> Data Diri </h3>
     			<hr>
-    			<?= $form->field($Masyarakat, 'nama', $fieldOptions1)->textInput(['placeholder' => 'Input Nama Lengkap']) ?>
+    			<?= $form->field($model, 'nama', $fieldOptions1)->textInput(['placeholder' => 'Input Nama Lengkap']) ?>
 
-			    	<?= $form->field($Masyarakat, 'nik', $fieldOptions2)->textInput(['placeholder' => 'Input Nomor Induk Keluarga'])?>
+		    	<?= $form->field($model, 'nik', $fieldOptions2)->textInput(['placeholder' => 'Input Nomor Induk Keluarga'])?>
 
-			    	<?= $form->field($Masyarakat, 'no_telepon', $fieldOptions3)->textInput(['placeholder' => 'Input No.Telepon'])?>
+		    	<?= $form->field($model, 'no_telepon', $fieldOptions3)->textInput(['placeholder' => 'Input No.Telepon'])?>
 
-			    	<?= $form->field($Masyarakat, 'tanggal_lahir', $fieldOptions4)->widget(DatePicker::classname(),
-						['name' => 'anniversary',
-						'value' => '',
-					    'readonly' => true,
-					    'pluginOptions' => [
-					        'autoclose'=>true,
-					        'format' => 'yyyy-m-dd'
-					    ]
-					]) ?>
+		    	<?= $form->field($model, 'tanggal_lahir', $fieldOptions4)->widget(DatePicker::classname(),
+					['name' => 'anniversary',
+					'value' => '',
+				    'readonly' => true,
+				    'pluginOptions' => [
+				        'autoclose'=>true,
+				        'format' => 'yyyy-m-dd'
+				    ]
+				]) ?>
 
-			    	<?= $form->field($Masyarakat, 'usia', $fieldOptions5)->textInput(['type' => 'number'], ['placeholder' => 'Input Usia']) ?>
-
-			    	<?= $form->field($Masyarakat, 'img', $fieldOptions6)->fileInput() ?>
-
+		    	<?= $form->field($model, 'usia', $fieldOptions5)->textInput(['type' => 'number'], ['placeholder' => 'Input Usia']) ?>
+                
     		</div>
     		<div class="col col-md-4">
     			<h3> Alamat </h3>
     			<hr>
-    			<?= $form->field($Masyarakat, 'id_provinsi', $fieldOptions7)->textInput(['placeholder' => 'Input Asal Provinsi']); ?>
+    			<?= $form->field($model, 'id_provinsi', $fieldOptions7)
+                    ->textInput(['placeholder' => 'Input Asal Provinsi'])
+                    ->label('Asal Provinsi'); ?>
 
-		    	<?= $form->field($Masyarakat, 'id_kota', $fieldOptions8)->textInput(['placeholder' => 'Input Asal Kota']); ?>
+		    	<?= $form->field($model, 'id_kota', $fieldOptions8)
+                    ->textInput(['placeholder' => 'Input Asal Kota'])
+                    ->label('Asal Kota'); ?>
 
-		    	<?= $form->field($Masyarakat, 'alamat', $fieldOptions9)->textarea(['placeholder' => 'Input Alamat Tinggal', 'rows' => 5]); ?>
+		    	<?= $form->field($model, 'alamat', $fieldOptions9)
+                    ->textarea(['placeholder' => 'Input Alamat Tinggal', 'rows' => 5]); ?>
     		</div>
     		<div class="col col-md-4">
     			<h3>Buat Akun</h3>
     			<hr>
-    			<?= $form->field($User, 'email', $fieldOptions10)->input('email',['placeholder' => $User->getAttributeLabel('Email')]); ?>
+    			<?= $form->field($model, 'email', $fieldOptions10)->input('email',['placeholder' => $model->getAttributeLabel('Email')]); ?>
 
-		    	<?= $form->field($User, 'password', $fieldOptions11)->textInput(['placeholder' => 'Masukan Password']); ?>
+		    	<?= $form->field($model, 'password', $fieldOptions11)->textInput(['placeholder' => 'Masukan Password']); ?>
 
-		    	<?= $form->field($User, 'role', $fieldOptions12)->textInput(['value' => '1', 'readonly' => true]); ?>
+		    	<?= $form->field($model, 'role')->hiddenInput(['value' => '1'])->label(false); ?>
+
+                
     		</div>
     	</div>
-    	<div class="row">
-    		<div class="col col-md-2"></div>
-    		<div class="col col-md-8">
-    			<?= Html::submitButton('save', ['class' => 'btn btn-primary btn-block btn-flat']); ?>
-    		</div>
-    		<div class="col col-md-2"></div>
-    	</div>
+        <div class="form-group">   
+            <?= Html::submitButton('save', ['class' => 'btn btn-primary btn-block']); ?>
+        </div>
 
 	    <?php ActiveForm::end(); ?>
 	    <div>&nbsp;</div>

@@ -3,14 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\LoginForm;
 use app\models\Masyarakat;
 use app\models\Petugas;
+use app\models\User;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
+use yii\web\Controller;
+use yii\web\Response;
 
 class SiteController extends Controller
 {
@@ -62,8 +64,32 @@ class SiteController extends Controller
     public function actionRegister()
     {
         $this->layout = 'frontend/register';
-        return $this->render('register');
+
+        $model = new Masyarakat();
+        
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save(false);
+
+            $user = new User();
+
+            $user->email = $model->email;
+            $user->password = $model->password;
+            $user->role = 1;
+            $user->id_masyarakat = $model->id;
+
+            $user->save();
+
+            $model->save();
+
+            return $this->redirect(['login']);
+        }
+        return $this->render('register',[
+            'model' => $model,
+        ]);
     }
+
     /**
      * Login action.
      *
