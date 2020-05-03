@@ -1,5 +1,6 @@
 <?php 
 use app\models\Aduan;
+use app\models\AduanMasyarakat;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\ListView;
@@ -50,6 +51,6 @@ use yii\widgets\ListView;
       <!-- /.attachment-pushed -->
     </div>
     <!-- /.attachment-block -->
-    <span class="pull-right text-muted">45 likes - 2 comments</span>
+    <span class="pull-right text-muted">45 likes - <?= AduanMasyarakat::find()->andWhere(['id_aduan' => $model->id])->count();?> comments</span>
   </div>
 </div>

@@ -46,10 +46,10 @@ class Masyarakat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nik', 'nama', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia'], 'required'],
+            [['nik', 'nama', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir'], 'required'],
             [['id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['alamat'], 'string'],
-            [['tanggal_lahir', 'role', 'id_petugas', 'img', 'email','password', 'id_masyarakat'], 'safe'],
+            [['tanggal_lahir', 'role', 'usia', 'id_petugas', 'img', 'email','password', 'id_masyarakat'], 'safe'],
             [['nik', 'nama', 'no_telepon'], 'string', 'max' => 255],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],

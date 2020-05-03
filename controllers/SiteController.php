@@ -70,7 +70,7 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->save(false);
+            $model->save();
 
             $user = new User();
 

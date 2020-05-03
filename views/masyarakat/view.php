@@ -3,6 +3,7 @@
 use app\models\Aduan;
 use app\models\Masyarakat;
 use app\models\User;
+use yii\base\Security;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -46,13 +47,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>Total Aduan</b> <a class="pull-right">1,322</a>
+                                <b>Total Aduan</b> <a class="pull-right">
+                                    <?= Aduan::find()->andWhere(['id_masyarakat' => $model->id])->count();
+                                    ?>
+                                </a>
                             </li>
                             <li class="list-group-item">
-                                <b>Total Aduan Diterima</b> <a class="pull-right">543</a>
+                                <b>Total Aduan Diproses</b> <a class="pull-right">
+                                    <?= Aduan::find()->andWhere(['id_masyarakat' => $model->id, 'penentuan' => 'DIPROSES'])->count();
+                                    ?>
+                                </a>
                             </li>
                             <li class="list-group-item">
-                                <b>Total Aduan Ditolak</b> <a class="pull-right">13,287</a>
+                                <b>Total Aduan Diterima</b> <a class="pull-right">
+                                    <?= Aduan::find()->andWhere(['id_masyarakat' => $model->id, 'penentuan' => 'DITERIMA'])->count();
+                                    ?>
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Total Aduan Ditolak</b> <a class="pull-right">
+                                    <?= Aduan::find()->andWhere(['id_masyarakat' => $model->id, 'penentuan' => 'DITOLAK'])->count();
+                                    ?>
+                                </a>
                             </li>
                         </ul>
                         <?= Html::a('Buat Aduan',['/aduan/create/'],['class' => 'btn btn-primary btn-block']); ?>
@@ -139,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'pagination' => [
                                     'pageSize' => 25
                                 ]
-                            ]); 
+                            ]);
                         ?>
                         <?= ListView::widget([
                             'dataProvider' => $dataProvider,

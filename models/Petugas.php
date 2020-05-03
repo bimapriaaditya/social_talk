@@ -39,9 +39,9 @@ class Petugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia'], 'required'],
+            [['nama', 'id_bagian', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir',], 'required'],
             [['id_bagian', 'id_provinsi', 'id_kota', 'usia'], 'integer'],
-            [['tanggal_lahir', 'img'], 'safe'],
+            [['tanggal_lahir', 'img', 'usia'], 'safe'],
             [['nama', 'no_telepon', 'alamat', 'img'], 'string', 'max' => 255],
             [['id_bagian'], 'exist', 'skipOnError' => true, 'targetClass' => Bagian::className(), 'targetAttribute' => ['id_bagian' => 'id']],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],

@@ -84,6 +84,11 @@ class MasyarakatController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
+            $request = Yii::$app->request->post('Masyarakat')['tanggal_lahir'];
+            $diff = date_diff(date_create($request), date_create(date('Ymd')));
+            $usia = $diff->format('%y');
+            $model->usia = $usia;
+
             $MasyarakatImg = UploadedFile::getInstance($model, 'img');
 
             if ($MasyarakatImg !== null) {

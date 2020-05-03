@@ -188,7 +188,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <!-- Comment -->
                 <div class="col-md-4">
                     <button type="button" class="btn btn-block">
-                        <span class="badge bg-purple">999</span>
+                        <span class="badge bg-purple">
+                            <?= AduanMasyarakat::find()->andWhere(['id_aduan' => $model->id])->count(); ?>
+                        </span>
                         <i class="glyphicon glyphicon-comment"></i>
                     </button>
                 </div>
