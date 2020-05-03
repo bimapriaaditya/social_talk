@@ -45,6 +45,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'sifat')->dropDownList([ 'prompt' => '--- Umum / Rahasia ---' ,'1' => 'Public (Umum)', '2' => 'Private (Rahasia)']) ?>
 
+    <?= $form->field($model, 'penentuan')->hiddenInput(['value' => 'TERKIRIM'])->label(false) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

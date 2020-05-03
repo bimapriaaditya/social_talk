@@ -26,13 +26,12 @@ use Yii;
  */
 class Masyarakat extends \yii\db\ActiveRecord
 {
+
     public $email;
     public $password;
     public $role;
     public $id_masyarakat;
     public $id_petugas;
-
-
     /**
      * {@inheritdoc}
      */
@@ -47,10 +46,10 @@ class Masyarakat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nik', 'nama', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia','email','password', 'id_masyarakat'], 'required'],
+            [['nik', 'nama', 'no_telepon', 'id_provinsi', 'id_kota', 'alamat', 'tanggal_lahir', 'usia'], 'required'],
             [['id_provinsi', 'id_kota', 'usia'], 'integer'],
             [['alamat'], 'string'],
-            [['tanggal_lahir', 'role', 'id_petugas', 'img', 'id_masyarakat'], 'safe'],
+            [['tanggal_lahir', 'role', 'id_petugas', 'img', 'email','password', 'id_masyarakat'], 'safe'],
             [['nik', 'nama', 'no_telepon'], 'string', 'max' => 255],
             [['id_provinsi'], 'exist', 'skipOnError' => true, 'targetClass' => Provinsi::className(), 'targetAttribute' => ['id_provinsi' => 'id']],
             [['id_kota'], 'exist', 'skipOnError' => true, 'targetClass' => Kota::className(), 'targetAttribute' => ['id_kota' => 'id']],
@@ -124,15 +123,5 @@ class Masyarakat extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::className(), ['id_masyarakat' => 'id']);
-    }
-
-    public function saveUser()
-    {
-        $user = new User();
-
-        $user->email = $this->email;
-        $user->password = $this->password;
-        $user->role = 1;
-        $user->id_masyarakat = $this->id;
     }
 }

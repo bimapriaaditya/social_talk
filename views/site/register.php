@@ -97,6 +97,8 @@ $fieldOptions12 = [
 				]) ?>
 
 		    	<?= $form->field($model, 'usia', $fieldOptions5)->textInput(['type' => 'number'], ['placeholder' => 'Input Usia']) ?>
+
+                <?= $form->field($model, 'img')->hiddenInput(['value' => '000_default.jpg'])->label(false) ?>
                 
     		</div>
     		<div class="col col-md-4">
