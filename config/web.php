@@ -16,6 +16,9 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+        'parsers' => [
+            'application/json' => 'yii\web\JsonParser',
+        ],
             'cookieValidationKey' => 'w6-JH-NTjMhiv6vQiSVb_80xnizNFlks',
         ],
         'cache' => [
@@ -35,14 +38,6 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
-        /*'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'enableStrictParsing' => false,
-            'rules' => [
-                // ...
-            ],
-        ],*/
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -60,6 +55,14 @@ $config = [
             ],
         ],
         'db' => $db,
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => true,
+            'enableStrictParsing' => false,
+            'rules' => [
+                //
+            ],
+        ],
     ],
     'params' => $params,
 ];

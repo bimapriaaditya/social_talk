@@ -4,6 +4,7 @@ use app\models\Aduan;
 use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use miloschuman\highcharts\Highcharts;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Petugas */
@@ -91,11 +92,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
             <div class="col-md-9">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#profile" data-toggle="tab">Informasi Profile</a></li>
-                            <li><a href="#aduanku" data-toggle="tab">Tanggapan</a></li>
-                        </ul>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#profile" data-toggle="tab">Informasi Profile</a></li>
+                        <li><a href="#tanggapanKu" data-toggle="tab">Tanggapan</a></li>
+                    </ul>
                     <div class="tab-content">
                         <div class="active tab-pane" id="profile">
                             <?= DetailView::widget([
@@ -121,13 +122,55 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ]) ?>
                         </div>
-                        <div class="tab-pane" id="aduanku">
-                            
+                        <div class="tab-pane" id="tanggapanKu">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </div>
+                    </div>
+                </div>
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> Diagram Rekapitulasi </h3>
+                    </div>
+                    <div class="box-body">
+                        <?php 
+                        echo Highcharts::widget([
+                           'options' => [
+                                'title' => ['text' => 'Aduan 2020'],
+                                'xAxis' => [
+                                    'categories' => [
+                                        'Januari', 
+                                        'Februari', 
+                                        'Maret', 
+                                        'April', 
+                                        'Mei', 
+                                        'Juni',
+                                        'Juli', 
+                                        'Agustus', 
+                                        'September', 
+                                        'Oktober',
+                                        'November', 
+                                        'Desember'
+                                    ]
+                                ],
+                              'yAxis' => [
+                                    'title' => ['text' => 'Data Tercapai']
+                              ],
+                              'series' => [
+                                    ['name' => 'Total Aduan', 'data' => [
+                                        4, 2, 6, 10, 13, 11, 20, 21, 18, 10, 11, 25]
+                                ]
+                              ]
+                            ]
+                        ]);
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </div>
