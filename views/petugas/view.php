@@ -138,6 +138,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="box-body">
                         <?php 
+                        $jan = array((int) Aduan::find()->andWhere(['bulan' => '1'])->count());
+                        $feb = array((int) Aduan::find()->andWhere(['bulan' => '2'])->count()); 
+                        $mar = array((int) Aduan::find()->andWhere(['bulan' => '3'])->count()); 
+                        $apr = array((int) Aduan::find()->andWhere(['bulan' => '4'])->count()); 
+                        $mei = array((int) Aduan::find()->andWhere(['bulan' => '5'])->count()); 
+                        $jun = array((int) Aduan::find()->andWhere(['bulan' => '6'])->count()); 
+                        $jul = array((int) Aduan::find()->andWhere(['bulan' => '7'])->count()); 
+                        $ags = array((int) Aduan::find()->andWhere(['bulan' => '8'])->count());
+                        $sep = array((int) Aduan::find()->andWhere(['bulan' => '9'])->count()); 
+                        $okt = array((int) Aduan::find()->andWhere(['bulan' => '10'])->count()); 
+                        $nov = array((int) Aduan::find()->andWhere(['bulan' => '11'])->count()); 
+                        $des = array((int) Aduan::find()->andWhere(['bulan' => '12'])->count());
                         echo Highcharts::widget([
                            'options' => [
                                 'title' => ['text' => 'Aduan 2020'],
@@ -162,7 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
                               ],
                               'series' => [
                                     ['name' => 'Total Aduan', 'data' => [
-                                        4, 2, 6, 10, 13, 11, 20, 21, 18, 10, 11, 25]
+                                        $jan, $feb, $mar, $apr, $mei, $jun, $jul, $ags, $sep, $okt, $nov, $des]
                                 ]
                               ]
                             ]
