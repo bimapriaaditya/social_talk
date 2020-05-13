@@ -2,9 +2,11 @@
 
 use app\models\Aduan;
 use app\models\User;
+use app\models\Kategori;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use miloschuman\highcharts\Highcharts;
+use miloschuman\highcharts\SeriesDataHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Petugas */
@@ -13,6 +15,7 @@ $this->title = $model->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Petugas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
 ?>
 <div class="petugas-view">
 
@@ -173,14 +176,71 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => ['text' => 'Data Tercapai']
                               ],
                               'series' => [
-                                    ['name' => 'Total Aduan', 'data' => [
+                                    ['name' => 'Total Aduan Lokal', 'data' => [
+                                        1, 2, 5, 4, 2, 4, 12, 8, 9, 5]
+                                    ],
+                                    ['name' => 'Total Aduan Provinsi', 'data' => [
                                         $jan, $feb, $mar, $apr, $mei, $jun, $jul, $ags, $sep, $okt, $nov, $des]
+                                    ]
                                 ]
-                              ]
                             ]
                         ]);
                         ?>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-warning">
+            <div class="box-header">
+                <h3 class="box-title with-border">
+                    Diagram Rekapitulasi
+                </h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-6">
+                    <?= Highcharts::widget([
+                           'options' => [
+                                'chart' => [
+                                    'type' => 'pie'
+                                ],
+                                'point' => [
+                                    'valueSuffix' => '%'
+                                ],
+                                'title' => ['text' => 'Kategori Aduan Lokal'],
+                                'series' => [
+                                    [
+                                        'name' => 'Total Aduan',
+                                        'colorByPoint' => true,
+                                         'data' => Kategori::getListChart()
+                                    ]   
+                                ]
+                            ]
+                        ]);
+                    ?>
+
+                </div>
+                <div class="col-md-6">
+                    <?= Highcharts::widget([
+                           'options' => [
+                                'chart' => [
+                                    'type' => 'pie'
+                                ],
+                                'point' => [
+                                    'valueSuffix' => '%'
+                                ],
+                                'title' => ['text' => 'Kategori Aduan Lokal'],
+                                'series' => [
+                                    ['name' => 'Total Aduan', 'colorByPoint' => true, 'data' => 
+                                        [
+                                        ['name' => "Chrome", 'y' => 20.25],
+                                        ['name' => "Lorem", 'y' => 45.25],
+                                        ['name' => "Ipsum", 'y' => 35.50],
+                                        ]
+                                    ]   
+                                ]
+                            ]
+                        ]);
+                    ?>
                 </div>
             </div>
         </div>

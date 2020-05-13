@@ -51,12 +51,22 @@ class Kategori extends \yii\db\ActiveRecord
      */
     public function getAduans()
     {
+        $this->nama;
         return $this->hasMany(Aduan::className(), ['id_kategori' => 'id']);
     }
 
     public static function getList()
     {
-        $query = Kategori::find()->orderBy(['id' => SORT_ASC])->all();
+        $query = self::find()->orderBy(['id' => SORT_ASC])->all();
         return ArrayHelper::map($query, 'id', 'nama');
+    }
+
+    public static function getListChart()
+    {
+        $list = [];
+        foreach (self::find()->all() as $kategori) {
+            $list[] = ['name' => $kategori->nama, 'y' => 20.25];
+        }
+        return $list;
     }
 }
