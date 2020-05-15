@@ -142,16 +142,27 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="box-body">
                         <?php 
                         $jan = array((int) Aduan::find()->andWhere(['bulan' => '1'])->count());
-                        $feb = array((int) Aduan::find()->andWhere(['bulan' => '2'])->count()); 
+
+                        $feb = array((int) Aduan::find()->andWhere(['bulan' => '2'])->count());
+
                         $mar = array((int) Aduan::find()->andWhere(['bulan' => '3'])->count()); 
+
                         $apr = array((int) Aduan::find()->andWhere(['bulan' => '4'])->count()); 
+
                         $mei = array((int) Aduan::find()->andWhere(['bulan' => '5'])->count()); 
+                        
                         $jun = array((int) Aduan::find()->andWhere(['bulan' => '6'])->count()); 
+                        
                         $jul = array((int) Aduan::find()->andWhere(['bulan' => '7'])->count()); 
+                        
                         $ags = array((int) Aduan::find()->andWhere(['bulan' => '8'])->count());
+                        
                         $sep = array((int) Aduan::find()->andWhere(['bulan' => '9'])->count()); 
+                        
                         $okt = array((int) Aduan::find()->andWhere(['bulan' => '10'])->count()); 
+                        
                         $nov = array((int) Aduan::find()->andWhere(['bulan' => '11'])->count()); 
+                        
                         $des = array((int) Aduan::find()->andWhere(['bulan' => '12'])->count());
                         echo Highcharts::widget([
                            'options' => [
@@ -176,11 +187,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => ['text' => 'Data Tercapai']
                               ],
                               'series' => [
-                                    ['name' => 'Total Aduan Lokal', 'data' => [
-                                        1, 2, 5, 4, 2, 4, 12, 8, 9, 5]
+                                    ['name' => 'Total Aduan Nasional', 'data' => [
+                                        $jan, $feb, $mar, $apr, $mei, $jun, $jul, $ags, $sep, $okt, $nov, $des]
                                     ],
                                     ['name' => 'Total Aduan Provinsi', 'data' => [
-                                        $jan, $feb, $mar, $apr, $mei, $jun, $jul, $ags, $sep, $okt, $nov, $des]
+                                        1, 2, 5, 4, 2, 4, 12, 8, 9, 5]
                                     ]
                                 ]
                             ]
@@ -200,18 +211,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-6">
                     <?= Highcharts::widget([
                            'options' => [
-                                'chart' => [
-                                    'type' => 'pie'
+                                'plotOptions' => [
+                                    'pie' => [
+                                        'cursor' => 'pointer',
+                                    ],
                                 ],
-                                'point' => [
-                                    'valueSuffix' => '%'
-                                ],
-                                'title' => ['text' => 'Kategori Aduan Lokal'],
+                                'title' => ['text' => 'Kategori Aduan Nasional'],
                                 'series' => [
                                     [
+                                        'type' => 'pie',
                                         'name' => 'Total Aduan',
-                                        'colorByPoint' => true,
-                                         'data' => Kategori::getListChart()
+                                        'data' => Kategori::getListChart()
                                     ]   
                                 ]
                             ]
@@ -222,21 +232,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-6">
                     <?= Highcharts::widget([
                            'options' => [
-                                'chart' => [
-                                    'type' => 'pie'
-                                ],
-                                'point' => [
-                                    'valueSuffix' => '%'
-                                ],
-                                'title' => ['text' => 'Kategori Aduan Lokal'],
+                                'title' => ['text' => 'Kategori Aduan Provinsi'],
                                 'series' => [
-                                    ['name' => 'Total Aduan', 'colorByPoint' => true, 'data' => 
-                                        [
-                                        ['name' => "Chrome", 'y' => 20.25],
-                                        ['name' => "Lorem", 'y' => 45.25],
-                                        ['name' => "Ipsum", 'y' => 35.50],
-                                        ]
-                                    ]   
+                                    [
+                                        'type' => 'pie',
+                                        'name' => 'Total Aduan', 
+                                        'data' => Kategori::getListProvChart()
+                                    ],   
                                 ]
                             ]
                         ]);

@@ -61,11 +61,34 @@ class Kategori extends \yii\db\ActiveRecord
         return ArrayHelper::map($query, 'id', 'nama');
     }
 
+    public function getValueChart()
+    {
+        return (int) Aduan::find()
+            ->andWhere(['id_kategori' => $this->id])
+            ->count();
+    }
+
     public static function getListChart()
     {
         $list = [];
-        foreach (self::find()->all() as $kategori) {
-            $list[] = ['name' => $kategori->nama, 'y' => 20.25];
+        foreach (self::find()->all() as $nasional) {
+            $list[] = [ 'name' => $nasional->nama, 'y' => $nasional->getValueChart()];
+        }
+        return $list;
+    }
+
+    public function getValueProvChart()
+    {
+        return (int) Aduan::find()
+            ->andWhere(['id_kategori' => $this->id, 'id_provinsi' => Yii::$app->user->identity->petugas->id_provinsi])
+            ->count();
+    }
+
+    public static function getListProvChart()
+    {
+        $list = [];
+        foreach (self::find()->all() as $provinsi) {
+            $list[] = ['name' => $provinsi->nama, 'y' => $provinsi->getValueProvChart()];
         }
         return $list;
     }
