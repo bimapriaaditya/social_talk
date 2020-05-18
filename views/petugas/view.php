@@ -6,8 +6,10 @@ use app\models\Kategori;
 use app\models\LaporanTahunan;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
 use miloschuman\highcharts\Highcharts;
 use miloschuman\highcharts\SeriesDataHelper;
+use yii\data\ActiveDataProvider;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Petugas */
@@ -127,13 +129,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]) ?>
                         </div>
                         <div class="tab-pane" id="tanggapanKu">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            <div>&nbsp;</div>
+                            <?php 
+                            $dataProvider = new ActiveDataProvider([
+                                'query' => Aduan::find()
+                                    ->andWhere(['id_petugas' => Yii::$app->user->identity->id_petugas])
+                                    ->orderBy(['id' => SORT_ASC]),
+                                'pagination' => [
+                                    'pageSize' => 15
+                                ]
+                            ]);
+                            echo ListView::widget([
+                                'dataProvider' => $dataProvider,
+                                'itemView' => '_daftar',
+                            ]);
+                            ?>
                         </div>
                     </div>
                 </div>

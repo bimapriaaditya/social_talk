@@ -47,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-2" style="text-align: right;">
+                    <div class="aduan-update">
                     <?php if (User::isPetugas()){                        
                         $form = ActiveForm::begin([
                             'action' => ['update', 'id' => $model->id]

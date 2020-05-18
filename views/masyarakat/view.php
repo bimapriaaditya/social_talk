@@ -153,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ->andWhere(['id_masyarakat' => $model->id])
                                     ->orderBy(['tanggal' => SORT_ASC]),
                                 'pagination' => [
-                                    'pageSize' => 25
+                                    'pageSize' => 15
                                 ]
                             ]);
                         ?>
