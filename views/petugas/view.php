@@ -3,6 +3,7 @@
 use app\models\Aduan;
 use app\models\User;
 use app\models\Kategori;
+use app\models\LaporanTahunan;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use miloschuman\highcharts\Highcharts;
@@ -132,6 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <div>&nbsp;</div>
                         </div>
                     </div>
                 </div>
@@ -141,29 +143,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div class="box-body">
                         <?php 
-                        $jan = array((int) Aduan::find()->andWhere(['bulan' => '1'])->count());
-
-                        $feb = array((int) Aduan::find()->andWhere(['bulan' => '2'])->count());
-
-                        $mar = array((int) Aduan::find()->andWhere(['bulan' => '3'])->count()); 
-
-                        $apr = array((int) Aduan::find()->andWhere(['bulan' => '4'])->count()); 
-
-                        $mei = array((int) Aduan::find()->andWhere(['bulan' => '5'])->count()); 
-                        
-                        $jun = array((int) Aduan::find()->andWhere(['bulan' => '6'])->count()); 
-                        
-                        $jul = array((int) Aduan::find()->andWhere(['bulan' => '7'])->count()); 
-                        
-                        $ags = array((int) Aduan::find()->andWhere(['bulan' => '8'])->count());
-                        
-                        $sep = array((int) Aduan::find()->andWhere(['bulan' => '9'])->count()); 
-                        
-                        $okt = array((int) Aduan::find()->andWhere(['bulan' => '10'])->count()); 
-                        
-                        $nov = array((int) Aduan::find()->andWhere(['bulan' => '11'])->count()); 
-                        
-                        $des = array((int) Aduan::find()->andWhere(['bulan' => '12'])->count());
                         echo Highcharts::widget([
                            'options' => [
                                 'title' => ['text' => 'Aduan 2020'],
@@ -187,16 +166,50 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'title' => ['text' => 'Data Tercapai']
                               ],
                               'series' => [
-                                    ['name' => 'Total Aduan Nasional', 'data' => [
-                                        $jan, $feb, $mar, $apr, $mei, $jun, $jul, $ags, $sep, $okt, $nov, $des]
+                                //Blue => Now
+                                    [
+                                        'name' => 'Total Aduan 2020', 
+                                        'data' => LaporanTahunan::getBlueChart()
                                     ],
-                                    ['name' => 'Total Aduan Provinsi', 'data' => [
-                                        1, 2, 5, 4, 2, 4, 12, 8, 9, 5]
-                                    ]
+                                //Black => Comparison 1
+                                    [
+                                        'name' => 'Total Aduan 2019', 
+                                        'data' => LaporanTahunan::getBlackChart()
+                                    ],
+                                //Green => Comparison 2
+                                    [
+                                        'name' => 'Total Aduan 2018', 
+                                        'data' => LaporanTahunan::getGreenChart()
+                                    ],
                                 ]
                             ]
                         ]);
                         ?>
+                        <div class="col-sm-4">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-blue">Blue Data</span>
+                                <h5 class="description-header">
+                                    <?php echo LaporanTahunan::getTotalBlue() ?>
+                                </h5>
+                                <span class="description-text">ADUAN TAHUN <?php echo date('Y'); ?></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-blck">Black Data</span>
+                                <h5 class="description-header">
+                                    <?php echo LaporanTahunan::getTotalBlack()?>
+                                </h5>
+                                <span class="description-text">ADUAN TAHUN <?php echo date("Y",strtotime("-1 year")); ?></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="description-block border-right">
+                                <span class="description-percentage text-green">Green Data</span>
+                                <h5 class="description-header">$35,210.43</h5>
+                                <span class="description-text">ADUAN TAHUN KEMARIN</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
