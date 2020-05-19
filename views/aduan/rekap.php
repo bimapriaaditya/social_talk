@@ -1,9 +1,10 @@
 <?php 
-use yii\helpers\Html;
-use miloschuman\highcharts\Highcharts;
+use app\models\Aduan;
+use app\models\Kategori;
 use app\models\LaporanTahunan;
 use app\models\User;
-use app\models\Kategori;
+use miloschuman\highcharts\Highcharts;
+use yii\helpers\Html;
 ?>
 <div class="aduan-rekap">
 	<div class="callout callout-info">
@@ -169,18 +170,7 @@ use app\models\Kategori;
                     'title' => ['text' => 'Statistik Status Progres Aduan'],
                     'xAxis' => [
                         'categories' => [
-                            'Januari', 
-                            'Februari', 
-                            'Maret', 
-                            'April', 
-                            'Mei', 
-                            'Juni',
-                            'Juli', 
-                            'Agustus', 
-                            'September', 
-                            'Oktober',
-                            'November', 
-                            'Desember'
+                            'Total Aduan'
                         ],
                         'crosshair' => true
                     ],
@@ -193,20 +183,20 @@ use app\models\Kategori;
                   	'series' => [
                         [
                             'name' => 'Terkirim', 
-                            'data' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ,12]
+                            'data' => [Aduan::getTerkirimCount()]
                         ],
                         [
                             'name' => 'Diproses', 
-                            'data' => [2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ,12, 13]
+                            'data' => [Aduan::getDiprosesCount()]
                         ],
                         [
 
                             'name' => 'Diterima', 
-                            'data' => [3, 4, 5, 6, 7, 8, 9, 10, 11 ,12, 13, 14]
+                            'data' => [Aduan::getDiterimaCount()]
                         ],
                         [
                             'name' => 'Ditolak', 
-                            'data' => [4, 5, 6, 7, 8, 9, 10, 11 ,12, 13, 14, 15]
+                            'data' => [Aduan::getDitolakCount()]
                         ]
                     ]
                 ]

@@ -176,5 +176,32 @@ class Aduan extends \yii\db\ActiveRecord
         return unlink($path);
     }
 
+    public static function getTerkirimCount()
+    {
+        return (int) self::find()
+            ->andWhere(['penentuan' => 'TERKIRIM'])
+            ->count();
+    }
+
+    public static function getDiprosesCount()
+    {
+        return (int) self::find()
+            ->andWhere(['penentuan' => 'DIPROSES'])
+            ->count();
+    }
+
+    public static function getDiterimaCount()
+    {
+        return (int) self::find()
+            ->andWhere(['penentuan' => 'DITERIMA'])
+            ->count();
+    }
+
+    public static function getDitolakCount()
+    {
+        return (int) self::find()
+            ->andWhere(['penentuan' => 'DITOLAK'])
+            ->count();
+    }
     
 }
