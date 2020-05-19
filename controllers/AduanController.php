@@ -69,6 +69,14 @@ class AduanController extends Controller
         ]);
     }
 
+    public function actionRekapitulasi()
+    {
+        $model = new Aduan();
+        return $this->render('rekap', [
+            'model' => $model
+        ]);
+    }
+
     /**
      * Displays a single Aduan model.
      * @param integer $id

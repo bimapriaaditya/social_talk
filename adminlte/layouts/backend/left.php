@@ -13,7 +13,7 @@ use yii\helpers\Html;
 
         <!-- Sidebar user panel -->
         <div class="user-panel">
-            <div class="pull-left image">
+            <div class="pull-left image" style="height: 50px;" >
                 <?php 
                 if(User::isMasyarakat()){
                     echo Html::img('@MasyarakatImgUrl/' . User::getImgMasyarakat() , ['class' => 'img-circle']);
@@ -82,14 +82,7 @@ use yii\helpers\Html;
                         ],
                     ],
                     [
-                        'label' => 'Rekapitulasi',
-                        'icon' => 'pie-chart',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Harian', 'icon' => 'line-chart', 'url' => ['aduan/create']],
-                            ['label' => 'Diterima', 'icon' => 'area-chart', 'url' => ['aduan/create']],
-                            ['label' => 'Ditolak', 'icon' => 'bar-chart', 'url' => ['aduan/create']],
-                        ]
+                        'label' => 'Rekapitulasi', 'icon' => 'pie-chart', 'url' => ['aduan/rekapitulasi'],
                     ],
                 ],
             ]
