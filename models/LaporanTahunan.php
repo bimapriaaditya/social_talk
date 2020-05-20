@@ -40,9 +40,10 @@ class LaporanTahunan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'tahun'], 'required'],
+            [['status', 'tahun'], 'required'],
             [['type'], 'string'],
-            [['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember', 'total'], 'integer'],
+            [['type'],'safe'],
+            [['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember', 'total', 'status'], 'integer'],
             [['tahun'], 'string', 'max' => 10],
         ];
     }

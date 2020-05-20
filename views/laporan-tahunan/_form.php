@@ -16,6 +16,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tahun')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'status')->dropDownList(['0' => 'Off', '1' => 'On']); ?>
+
     <?= $form->field($model, 'januari')->textInput() ?>
 
     <?= $form->field($model, 'februari')->textInput() ?>

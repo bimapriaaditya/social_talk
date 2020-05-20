@@ -22,7 +22,8 @@
         "yii2mod/yii2-sweet-alert": "*",
         "kartik-v/yii2-widget-datepicker": "@dev",
         "sjaakp/yii2-loadmore": "^1.0",
-        "miloschuman/yii2-highcharts-widget": "^8.0"
+        "miloschuman/yii2-highcharts-widget": "^8.0",
+        "kartik-v/yii2-export": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

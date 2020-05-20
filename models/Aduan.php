@@ -200,7 +200,7 @@ class Aduan extends \yii\db\ActiveRecord
     public static function getDitolakCount()
     {
         return (int) self::find()
-            ->andWhere(['penentuan' => 'DITOLAK'])
+            ->andWhere(['penentuan' => 'TERKIRIM'])
             ->count();
     }
     

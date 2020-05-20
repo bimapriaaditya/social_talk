@@ -1,10 +1,12 @@
 <?php 
+use yii\helpers\Html;
 use app\models\Aduan;
 use app\models\Kategori;
 use app\models\LaporanTahunan;
+use app\models\LaporanTahunanSearch;
 use app\models\User;
 use miloschuman\highcharts\Highcharts;
-use yii\helpers\Html;
+use kartik\export\ExportMenu;
 ?>
 <div class="aduan-rekap">
 	<div class="callout callout-info">
@@ -15,6 +17,9 @@ use yii\helpers\Html;
 	<div class="box box-primary">
 		<div class="box-header with-border">
 			<h4 class="box-title"> Data Tahunan </h4>
+            <?php if (User::isAdmin()): ?>
+                <?= Html::a('Set Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-danger']); ?>
+            <?php endif ?>
 		</div>
 		<div class="box-body">
             <?= Highcharts::widget([
@@ -85,24 +90,61 @@ use yii\helpers\Html;
             </div>
 		</div>
 		<div class="box-footer">
-			<div class="col-sm-4">
-				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-info btn-block']); ?>
-				<?php if (User::isAdmin()): ?>
-					<?= Html::a('Set Blue Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-info btn-block']); ?>
-				<?php endif ?>
-			</div>
-			<div class="col-sm-4">
-				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn bg-navy btn-block']); ?>
-				<?php if (User::isAdmin()): ?>
-					<?= Html::a('Set Black Data', ['aduan/rekapitulasi'] ,['class' => 'btn bg-navy btn-block']); ?>
-				<?php endif ?>
-			</div>
-			<div class="col-sm-4">
-				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-success btn-block']); ?>
-				<?php if (User::isAdmin()): ?>
-					<?= Html::a('Set Green Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-success btn-block']); ?>
-				<?php endif ?>
-			</div>
+            <div class="row">
+    			<div class="col-sm-4">
+    				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-info btn-block']); ?>
+    			</div>
+    			<div class="col-sm-4">
+    				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn bg-navy btn-block']); ?>
+    			</div>
+    			<div class="col-sm-4">
+    				<?= Html::a('Unduh Data', ['aduan/rekapitulasi'] ,['class' => 'btn btn-success btn-block']); ?>
+    			</div>
+            </div>
+            <div>&nbsp;</div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <?php 
+                $gridColumns = [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    'id',
+                    'type',
+                    'tahun',
+                    'status',
+                    'januari',
+                    'februari',
+                    'maret',
+                    'april',
+                    'mei',
+                    'juni',
+                    'juli',
+                    'agustus',
+                    'september',
+                    'oktober',
+                    'november',
+                    'desember',
+                    'total',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ];
+                ?>
+                <div class="col-md-6">
+                    <div class="btn btn-block" style="
+                    background-color: #dd4b39; 
+                    border-color: #d73925;
+                    ">
+                        <?php
+                        $searchModel = new LaporanTahunanSearch();
+                        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                        echo ExportMenu::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => $gridColumns,
+                            'filename' => 'Data Statistik Laporan Tahunan',
+                        ]); ?>
+                    </div>
+                </div>
+
+                <div class="col-md-3"></div>
+            </div>
 		</div>
 	</div>
 	<div class="box">
@@ -162,48 +204,84 @@ use yii\helpers\Html;
 			</h3>
 		</div>
 		<div class="box-body">
-			<?= Highcharts::widget([
-               'options' => [
-               		'chart' => [
-               			'type' => 'column'
-               		],
-                    'title' => ['text' => 'Statistik Status Progres Aduan'],
-                    'xAxis' => [
-                        'categories' => [
-                            'Total Aduan'
-                        ],
-                        'crosshair' => true
-                    ],
-                 	'yAxis' => [
-                        'title' => ['text' => 'Data Tercapai']
-                  	],
-                  	'tooltip' => [
-			        	'shared' => true,
-			    	],
-                  	'series' => [
-                        [
-                            'name' => 'Terkirim', 
-                            'data' => [Aduan::getTerkirimCount()]
-                        ],
-                        [
-                            'name' => 'Diproses', 
-                            'data' => [Aduan::getDiprosesCount()]
-                        ],
-                        [
+			<div class="col-md-10">
+				<?= Highcharts::widget([
+	               'options' => [
+	               		'chart' => [
+	               			'type' => 'column'
+	               		],
+	                    'title' => ['text' => 'Statistik Status Progres Aduan'],
+	                    'xAxis' => [
+	                        'categories' => [
+	                            'Total Aduan'
+	                        ],
+	                        'crosshair' => true
+	                    ],
+	                 	'yAxis' => [
+	                        'title' => ['text' => 'Data Tercapai']
+	                  	],
+	                  	'tooltip' => [
+				        	'shared' => true,
+				    	],
+	                  	'series' => [
+	                        [
+	                            'name' => 'Terkirim', 
+	                            'data' => [Aduan::getTerkirimCount()]
+	                        ],
+	                        [
+	                            'name' => 'Diproses', 
+	                            'data' => [Aduan::getDiprosesCount()]
+	                        ],
+	                        [
 
-                            'name' => 'Diterima', 
-                            'data' => [Aduan::getDiterimaCount()]
-                        ],
-                        [
-                            'name' => 'Ditolak', 
-                            'data' => [Aduan::getDitolakCount()]
-                        ]
-                    ]
-                ]
-            ]);?>
-		</div>
-		<div class="box-footer">
-			
+	                            'name' => 'Diterima', 
+	                            'data' => [Aduan::getDiterimaCount()]
+	                        ],
+	                        [
+	                            'name' => 'Ditolak', 
+	                            'data' => [Aduan::getDitolakCount()]
+	                        ]
+	                    ]
+	                ]
+	            ]);?>
+	        </div>
+	        <div class="col-md-2">
+	        	<div class="pad box-pane-right bg-green" style="min-height: 280px">
+                    <div class="description-block margin-bottom">
+                     	<div class="sparkbar pad" data-color="#fff">
+                     		<canvas width="34" height="30" style="display: inline-block; width: 34px; height: 30px; vertical-align: top;">
+                     		</canvas>
+                     	</div>
+                        <h5 class="description-header"><?= Aduan::getTerkirimCount() ?></h5>
+                        <span class="description-text">Terkirim</span>
+                    </div>
+                    <!-- /.description-block -->
+                    <div class="description-block margin-bottom">
+                        <div class="sparkbar pad" data-color="#fff">
+                            <canvas width="34" height="30" style="display: inline-block; width: 34px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                        <h5 class="description-header"><?= Aduan::getDiprosesCount() ?></h5>
+                        <span class="description-text">Diproses</span>
+                    </div>
+                    <!-- /.description-block -->
+                    <div class="description-block">
+                        <div class="sparkbar pad" data-color="#fff">
+                            <canvas width="34" height="30" style="display: inline-block; width: 34px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                        <h5 class="description-header"><?= Aduan::getDiterimaCount() ?></h5>
+                        <span class="description-text">Diterima</span>
+                    </div>
+                    <!-- /.description-block -->
+                    <div class="description-block">
+                        <div class="sparkbar pad" data-color="#fff">
+                            <canvas width="34" height="30" style="display: inline-block; width: 34px; height: 30px; vertical-align: top;"></canvas>
+                        </div>
+                        <h5 class="description-header"><?= Aduan::getDitolakCount() ?></h5>
+                        <span class="description-text">Ditolak</span>
+                    </div>
+                    <!-- /.description-block -->
+                </div>
+            </div>
 		</div>
 	</div>
 </div>

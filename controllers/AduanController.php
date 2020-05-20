@@ -71,9 +71,13 @@ class AduanController extends Controller
 
     public function actionRekapitulasi()
     {
+        $searchModel = new AduanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Aduan();
         return $this->render('rekap', [
-            'model' => $model
+            'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
